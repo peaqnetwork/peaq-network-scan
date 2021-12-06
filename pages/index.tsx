@@ -1,11 +1,29 @@
-import type { NextPage } from 'next'
+import { GetStaticProps } from 'next'
+import { getApi } from '../libs/api'
 
-const Home: NextPage = () => {
+interface Props {
+  api: {
+    genesisHash: string
+  }
+}
+
+export default function Home({api}: Props)  {
   return (
     <div className="">
       <h1>peaqScan</h1>
+      <p>{api.genesisHash}</p>
     </div>
   )
 }
 
-export default Home
+export const getStaticProps: GetStaticProps = async () => {
+  const api = await getApi();
+  return {
+    props: {
+      api
+    }
+  }
+}
+
+
+
