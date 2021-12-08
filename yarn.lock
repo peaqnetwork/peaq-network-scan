@@ -749,7 +749,7 @@
     "@polkadot/util" "8.1.2"
     "@polkadot/util-crypto" "8.1.2"
 
-"@polkadot/networks@8.1.2", "@polkadot/networks@^8.0.4", "@polkadot/networks@^8.1.2":
+"@polkadot/networks@8.1.2", "@polkadot/networks@^8.0.4":
   version "8.1.2"
   resolved "https://registry.yarnpkg.com/@polkadot/networks/-/networks-8.1.2.tgz#5c1b7d620413202f758ecc944c6893691ee68dc4"
   integrity sha512-OPjEjEdlErZW0dv1WNIEAaOja8g2ynscwM4pQbVWzbpACuM1xziPgfDF74M0R8fMOxr5EJOVbKsvOSBytw+TDg==
@@ -791,16 +791,6 @@
     "@polkadot/types" "6.10.3"
     "@polkadot/util" "^8.0.4"
 
-"@polkadot/types-known@6.11.1":
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/@polkadot/types-known/-/types-known-6.11.1.tgz#f25c01d33b91f1b7432bee1311a732147069b7e7"
-  integrity sha512-Vl4WJu56dNvMoXwJ+v9xO0rlWLocb/1KMNczG8UklxrAMfkkgCDIxGjkx/TpgCEfBLxBYavu9MQqQZhJulSP8g==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@polkadot/networks" "^8.1.2"
-    "@polkadot/types" "6.11.1"
-    "@polkadot/util" "^8.1.2"
-
 "@polkadot/types@6.10.3":
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/@polkadot/types/-/types-6.10.3.tgz#65f71909149f087c3dc523aa4dec4cb72f0f4052"
@@ -812,18 +802,7 @@
     "@polkadot/util-crypto" "^8.0.4"
     rxjs "^7.4.0"
 
-"@polkadot/types@6.11.1", "@polkadot/types@^6.11.1":
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/@polkadot/types/-/types-6.11.1.tgz#23927c8a26cba42d29da83e8e918c4e441157e87"
-  integrity sha512-utdAL7XrZmKWTk7iT/cUdr1FD4oaDT9OhZ1yRxilEiMk58QZg4Ntm8POH1Sq/l8/JvLcheE0qy1uZhxK3FS0Rw==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@polkadot/types-known" "6.11.1"
-    "@polkadot/util" "^8.1.2"
-    "@polkadot/util-crypto" "^8.1.2"
-    rxjs "^7.4.0"
-
-"@polkadot/util-crypto@8.1.2", "@polkadot/util-crypto@^8.0.4", "@polkadot/util-crypto@^8.1.2":
+"@polkadot/util-crypto@8.1.2", "@polkadot/util-crypto@^8.0.4":
   version "8.1.2"
   resolved "https://registry.yarnpkg.com/@polkadot/util-crypto/-/util-crypto-8.1.2.tgz#35ca296bf7b7cc76b8ed085a40585b196d6b9de5"
   integrity sha512-sqyz4zLyBleBmoaNkGaAQsNXVktqmHJ3XiuYgt9KJ7hIZjP7wjJMLZWzyOKVaL1w5/hUNTRzVuTGiA8GD62ByA==
@@ -842,7 +821,7 @@
     micro-base "^0.9.0"
     tweetnacl "^1.0.3"
 
-"@polkadot/util@8.1.2", "@polkadot/util@^8.0.4", "@polkadot/util@^8.1.2":
+"@polkadot/util@8.1.2", "@polkadot/util@^8.0.4":
   version "8.1.2"
   resolved "https://registry.yarnpkg.com/@polkadot/util/-/util-8.1.2.tgz#f3178a077758eca21e57f031ae0421b7634b1107"
   integrity sha512-s1Q6J7I2sxDdk8S9SA1wVSMRUN+6YGpAUehl1zE/VKtHUzxtZfX/M7dmZgNpARi8kmk7/0J61ZuIaFb0Cq81jw==
