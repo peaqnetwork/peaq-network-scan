@@ -1,6 +1,8 @@
 import { GetStaticProps } from 'next'
+import Blocks from '../components/HomeScreen/blocks/blocks'
 import Layout from '../components/layout/layout'
-import NavHeader from '../components/nav-header/nav-header'
+import Snapshot from '../components/HomeScreen/snapshot/snapshot'
+import Validators from '../components/HomeScreen/validators/validators'
 import { getApi } from '../libs/api'
 
 interface Props {
@@ -12,10 +14,11 @@ interface Props {
 export default function Home({api}: Props)  {
   return (
     <Layout>
-      <NavHeader />
       <div className="section top-section">
-        <h1>peaqScan</h1>
-        <p>{api.genesisHash}</p>
+        <Snapshot />
+        <Blocks />
+        <Validators />
+        {/* <p>{api.genesisHash}</p> */}
       </div>
     </Layout>
   )

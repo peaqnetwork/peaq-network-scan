@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './nav-header.module.css'
-import logo from '../../public/images/logo.svg'
+import logo from '../../public/images/logo_test.svg'
 
 export default function NavHeader(){
   return (
@@ -14,7 +14,7 @@ export default function NavHeader(){
           <Link href="/accounts"><a>Governance</a></Link>
           <Link href="/accounts"><a>Tools</a></Link>
         </div>
-        <Link href="/"><a><Image className={styles.logo} src={logo} alt="Logo" width="120px" /></a></Link>
+        <Link href="/"><a><Image src={logo} alt="Logo" width="120px" /></a></Link>
         
         <div style={{clear: 'both'}}></div>
       </div>

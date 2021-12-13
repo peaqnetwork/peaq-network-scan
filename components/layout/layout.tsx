@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
 import logo from '../../public/images/logo.svg'
+import Footer from '../footer/footer'
+import NavHeader from '../nav-header/nav-header'
 
 export default function Layout({ children }: {children: React.ReactNode}) {
   return (
@@ -24,9 +26,9 @@ export default function Layout({ children }: {children: React.ReactNode}) {
         <meta name="og:title" content="Peaq blockchain explorer" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      
+      <NavHeader />
       <main>{children}</main>
-      
+      <Footer />
     </div>
   )
 }

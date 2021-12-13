@@ -3,7 +3,7 @@
   height: 150px;
   /* width: 100%; */
   background-color: #212427;
-  padding: 10px 173px;
+  padding: 40px 173px;
   /* d */
   position: fixed;
   top: 0;
@@ -19,7 +19,7 @@
   float: right;
   display: block;
   text-align: center;
-  margin-top: 26px;
+  /* margin-top: 26px; */
 }
 .navLinks a {
   margin-left: 30px;

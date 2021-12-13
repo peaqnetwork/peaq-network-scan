@@ -1,0 +1,37 @@
+.blocksContainer {
+  /* padding: 10px 30px; */
+
+  margin-top: 4%;
+}
+.latestBlocks {
+  overflow: hidden;
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  width: 49%;
+  float: left;
+  height: 420px;
+}
+.transfers {
+  overflow: hidden;
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  width: 49%;
+  float: right;
+  height: 420px;
+}
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+.table tbody td {
+  text-align: left;
+  padding: 16px;
+}
+.table tr:nth-child(even) {
+  background-color: #212427;
+}
