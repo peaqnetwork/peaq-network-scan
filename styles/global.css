@@ -43,6 +43,9 @@ body {
 .justify-content-space-between {
   justify-content: space-between;
 }
+.align-items-center {
+  align-items: center;
+}
 
 .text-accent-purple {
   color: #a6a3ff;
@@ -73,6 +76,13 @@ body {
 .button.small {
   width: 140px;
   height: 45px;
+}
+
+.ml-3 {
+  margin-left: 12px;
+}
+.mr-3 {
+  margin-right: 12px;
 }
 
 table {

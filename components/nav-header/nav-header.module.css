@@ -39,11 +39,14 @@
   float: right;
 }
 .search input {
-  padding: 6px;
+  padding: 10px;
   width: 400px;
   background-color: #131416;
   border: none;
   border-radius: 5px;
+  background-image: url("/icons/search.svg");
+  background-repeat: no-repeat;
+  background-position: 6px 6px;
 }
 
 @media screen and (max-width: 600px) {

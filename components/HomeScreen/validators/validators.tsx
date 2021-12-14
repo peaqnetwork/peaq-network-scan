@@ -1,10 +1,15 @@
+import Image from 'next/image'
+import validatorsIcon from '../../../public/icons/validators.svg'
 import styles from './validators.module.css'
 
 export default function Validators(){
   return (
     <div className={styles.validatorsContainer}>
       <div className="d-flex justify-content-space-between">
-        <h3>Validators</h3>
+        <div className="d-flex">
+            <Image src={validatorsIcon} alt="box icon" width="20px" className="mr-2" />
+            <h3 className="ml-3">Validators</h3>
+          </div>
         <a href="/validators" className="button small">All</a>
       </div>
       <div>
