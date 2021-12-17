@@ -1,0 +1,219 @@
+@font-face {
+  font-family: "Ageo";
+  src: url("./fonts/Ageo.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: Ageo, Helvetica Neue, sans-serif;
+  /* line-height: 1.6; */
+  background-color: #131416;
+}
+
+/* Button */
+.button {
+  background-color: #3a3f42;
+  border: none;
+  color: #fff;
+  padding: 12px 34px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button.small {
+  width: 140px;
+  height: 45px;
+}
+
+/* TopNav */
+.topnav {
+  overflow: hidden;
+  background-color: #212427;
+  padding: 40px 173px;
+  width: 100%;
+}
+
+.topnav .nav-links {
+  float: right;
+  /* display: inline; */
+}
+.topnav.nav-brand {
+  width: 120px;
+}
+.topnav a {
+  /* float: right; */
+  /* display: block; */
+  color: #ffffff;
+  opacity: 0.5;
+  text-align: center;
+  /* padding: 14px 16px; */
+
+  margin-left: 30px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav img {
+  float: left;
+}
+.topnav input {
+  float: right;
+  padding: 10px;
+  width: 400px;
+  background-color: #131416;
+  border: none;
+  border-radius: 5px;
+  background-image: url("./icons/search.svg");
+  background-repeat: no-repeat;
+  background-position: 6px 6px;
+  color: #ffffff;
+}
+.topnav .chain-info-container {
+  margin-top: 30px;
+}
+
+/* Text utils */
+.text-dark-white {
+  color: #979798;
+}
+.text-accent-purple {
+  color: #a6a3ff;
+}
+
+/* Page */
+.page {
+  padding: 10px 173px;
+  /* width: 100%; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+
+/* Snapshot section */
+.snapshot {
+  overflow: hidden;
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  width: 100%;
+  margin-top: 6%;
+}
+.snapshot-item {
+  float: left;
+  width: 25%;
+}
+.snapshot-row::after {
+  display: table;
+  clear: both;
+}
+.snapshot-label {
+  font-weight: 400;
+  font-size: 80%;
+}
+.snapshot-value {
+  font-weight: 600;
+  font-size: 160%;
+  margin-top: 0;
+}
+
+/* Blocks */
+.blocks-container {
+  /* padding: 10px 30px; */
+
+  margin-top: 4%;
+}
+.latest-blocks {
+  overflow: hidden;
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  width: 49%;
+  float: left;
+  height: 420px;
+}
+.transfers {
+  overflow: hidden;
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  width: 49%;
+  float: right;
+  height: 420px;
+}
+
+/* Validators */
+.validators-container {
+  /* padding: 10px 30px; */
+  border: 1px solid #979798;
+  border-radius: 5px;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  color: #ffffff;
+  padding: 10px 30px;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+table thead th {
+  text-align: left;
+  padding: 16px;
+  font-size: 16px;
+}
+table tbody td {
+  text-align: left;
+  padding: 16px;
+  font-size: 16px;
+}
+tr:nth-child(even) {
+  background-color: #212427;
+}
+
+/* Utilities */
+/* Flex */
+.d-flex {
+  display: flex;
+}
+.justify-content-space-between {
+  justify-content: space-between;
+}
+.align-items-center {
+  align-items: center;
+}
+/* sizes */
+.ml-3 {
+  margin-left: 12px;
+}
+.mr-3 {
+  margin-right: 12px;
+}
+
+/* Footer */
+.footer {
+  /* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #282c2f;
+  color: white;
+  padding: 40px 173px;
+}
+.footer svg {
+  width: 120px;
+}
