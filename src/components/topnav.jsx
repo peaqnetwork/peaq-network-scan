@@ -1,6 +1,10 @@
+import { useState } from "react";
+
 export default function TopNav() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
   return (
-    <nav className="topnav">
+    <nav className={`topnav page ${isNavOpen ? "responsive" : ""}`}>
       {/* <div className="nav-brand"> */}
       <svg
         width="155"
@@ -37,7 +41,7 @@ export default function TopNav() {
       </svg>
       {/* </div> */}
       <div className="nav-links">
-        <a href="/" class="">
+        <a href="/" className="">
           Blockchain{" "}
           <svg
             width="12"
@@ -49,11 +53,11 @@ export default function TopNav() {
             <path
               d="M1.41 0.579956L6 5.16996L10.59 0.579956L12 1.99996L6 7.99996L0 1.99996L1.41 0.579956Z"
               fill="white"
-              fill-opacity="0.5"
+              fillOpacity="0.5"
             />
           </svg>
         </a>
-        <a href="/" class="">
+        <a href="/" className="">
           Staking
         </a>
         <a href="#news">
@@ -68,17 +72,19 @@ export default function TopNav() {
             <path
               d="M1.41 0.579956L6 5.16996L10.59 0.579956L12 1.99996L6 7.99996L0 1.99996L1.41 0.579956Z"
               fill="white"
-              fill-opacity="0.5"
+              fillOpacity="0.5"
             />
           </svg>
         </a>
         <a href="#contact">Tools</a>
-        <a href="/" class="">
+        <a href="/" className="">
           Accounts
         </a>
-        {/* <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-      </a> */}
+        <span className="nav-icon" onClick={() => setIsNavOpen(isNavOpen => !isNavOpen)} >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z" fill="#979798"/>
+</svg>
+      </span>
       </div>
       <div style={{ clear: "both" }}></div>
       <div className="chain-info-container">

@@ -22,7 +22,7 @@ export default function Validators() {
           All
         </a>
       </div>
-      <div>
+      <div className="validators-table">
         <table className="table">
           <thead>
             <tr>

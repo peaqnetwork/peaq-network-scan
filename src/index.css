@@ -41,7 +41,6 @@ body {
 .topnav {
   overflow: hidden;
   background-color: #212427;
-  padding: 40px 173px;
   width: 100%;
 }
 
@@ -82,6 +81,9 @@ body {
 .topnav .chain-info-container {
   margin-top: 30px;
 }
+.topnav .nav-icon {
+  display: none;
+}
 
 /* Text utils */
 .text-dark-white {
@@ -93,7 +95,8 @@ body {
 
 /* Page */
 .page {
-  padding: 10px 173px;
+  padding: 40px 173px;
+
   /* width: 100%; */
   /* margin-left: auto; */
   /* margin-right: auto; */
@@ -134,7 +137,7 @@ body {
   margin-top: 4%;
 }
 .latest-blocks {
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid #979798;
   border-radius: 5px;
   color: #ffffff;
@@ -144,7 +147,7 @@ body {
   height: 420px;
 }
 .transfers {
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid #979798;
   border-radius: 5px;
   color: #ffffff;
@@ -163,6 +166,9 @@ body {
   margin-bottom: 4%;
   color: #ffffff;
   padding: 10px 30px;
+}
+.validators-table {
+  overflow-x: auto;
 }
 
 /* Table */
@@ -212,8 +218,88 @@ tr:nth-child(even) {
   width: 100%;
   background-color: #282c2f;
   color: white;
-  padding: 40px 173px;
 }
-.footer svg {
+.footer .nav-brand {
   width: 120px;
+}
+.footer .socials {
+  float: right;
+}
+.footer .socials a {
+  margin-left: 20px;
+}
+
+/* Media queries */
+@media screen and (max-width: 600px) {
+  .button.small {
+    width: 100px;
+    height: 35px;
+    font-size: 80%;
+  }
+  .page {
+    padding: 10px 20px;
+  }
+  .topnav a {
+    display: none;
+  }
+  .topnav input {
+    width: 100%;
+  }
+  .topnav .nav-icon {
+    float: right;
+    display: block;
+  }
+
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive .nav-icon {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: right;
+    padding-top: 10px;
+  }
+  .topnav.responsive a:first-child {
+    margin-top: 50px;
+  }
+
+  .chain-info {
+    display: none;
+  }
+
+  .snapshot {
+    padding: 5px 5px;
+    text-align: center;
+  }
+  .snapshot-label {
+    font-size: 60%;
+  }
+  .snapshot-value {
+    font-size: 100%;
+  }
+
+  .transfers,
+  .latest-blocks {
+    width: 100%;
+    padding: 5px 5px;
+    overflow: auto;
+    margin-bottom: 15px;
+  }
+  table thead th,
+  table tbody td {
+    padding: 10px;
+    font-size: 80%;
+  }
+  td svg {
+    width: 20%;
+  }
+
+  .validators-container {
+    padding: 5px 5px;
+  }
 }
