@@ -1,4 +1,54 @@
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import getApi from "../libs/api";
+
+dayjs.extend(relativeTime);
+
 export default function BlocksTransfers() {
+  const [transferEvents, setTransferEvents] = useState([]);
+
+  useEffect(() => {
+    let unsubscribeAll = null;
+
+    const getAllEvents = async () => {
+      const api = await getApi();
+
+      unsubscribeAll = await api.query.system.events((events) => {
+        // loop through the Vec<EventRecord>
+        events.forEach((record) => {
+          // extract event
+          const { event } = record;
+
+          const { data, index, method, section } = event.toHuman();
+          // Get transfer events
+          if (section === "balances" && method === "Transfer") {
+            // Add new transfer event object
+            const from = data[0];
+            const to = data[1];
+            const amount = data[2];
+            const amountExa = (
+              Number(data[2].replace(/,/g, "")) / 1000000000000000000
+            ).toFixed(4); // Remove commas from string amount and divide by 10e18 to get Exa value
+
+            const newTransferEvents = transferEvents.slice(0, 100);
+            newTransferEvents.unshift({
+              from,
+              to,
+              amount,
+              amountExa,
+              index,
+              time: new Date().toString(),
+            });
+            setTransferEvents(newTransferEvents);
+          }
+        });
+      });
+    };
+
+    getAllEvents();
+    return () => unsubscribeAll && unsubscribeAll();
+  }, []);
   return (
     <div className="transfers">
       <div className="d-flex justify-content-space-between">
@@ -36,7 +86,7 @@ export default function BlocksTransfers() {
             />
           </svg>
 
-          <h3 className="ml-3">Transfers</h3>
+          <h3 className="ml-3">Recent Transfers</h3>
         </div>
         <a href="/transfers" className="button small">
           All
@@ -45,94 +95,34 @@ export default function BlocksTransfers() {
       <div>
         <table className="table">
           <tbody>
-            <tr>
-              <td className="text-large">
-                <div>
-                  Extrinsic index#{" "}
-                  <span className="text-accent-purple">787,89,21</span>
-                </div>
-                <div>
-                  <span className="text-dark-white text-small">From</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>{" "}
-                  <span className="text-dark-white text-small">To</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>
-                </div>
-              </td>
-              <td>
-                <div className="text-dark-white text-small">4 secs ago</div>
-                <div className="text-accent-purple text-small">3,5 PEAQ</div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                <div>
-                  Extrinsic index#{" "}
-                  <span className="text-accent-purple">787,89,21</span>
-                </div>
-                <div>
-                  <span className="text-dark-white text-small">From</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>{" "}
-                  <span className="text-dark-white text-small">To</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>
-                </div>
-              </td>
-              <td>
-                <div className="text-dark-white text-small">4 secs ago</div>
-                <div className="text-accent-purple text-small">3,5 PEAQ</div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                <div>
-                  Extrinsic index#{" "}
-                  <span className="text-accent-purple">787,89,21</span>
-                </div>
-                <div>
-                  <span className="text-dark-white text-small">From</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>{" "}
-                  <span className="text-dark-white text-small">To</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>
-                </div>
-              </td>
-              <td>
-                <div className="text-dark-white text-small">4 secs ago</div>
-                <div className="text-accent-purple text-small">3,5 PEAQ</div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                <div>
-                  Extrinsic index#{" "}
-                  <span className="text-accent-purple">787,89,21</span>
-                </div>
-                <div>
-                  <span className="text-dark-white text-small">From</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>{" "}
-                  <span className="text-dark-white text-small">To</span>{" "}
-                  <span className="text-accent-purple text-small">
-                    0xcd2d8b2cb...
-                  </span>
-                </div>
-              </td>
-              <td>
-                <div className="text-dark-white text-small">4 secs ago</div>
-                <div className="text-accent-purple text-small">3,5 PEAQ</div>
-              </td>
-            </tr>
+            {transferEvents.map((event) => (
+              <tr key={event.time}>
+                <td className="text-large">
+                  <div>
+                    Extrinsic index#{" "}
+                    <span className="text-accent-purple">{event.index}</span>
+                  </div>
+                  <div>
+                    <span className="text-dark-white text-small">From</span>{" "}
+                    <span className="text-accent-purple text-small">
+                      {`${event.from.slice(0, 10)}...`}
+                    </span>{" "}
+                    <span className="text-dark-white text-small">To</span>{" "}
+                    <span className="text-accent-purple text-small">
+                      {`${event.to.slice(0, 10)}...`}
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <div className="text-dark-white text-small">
+                    {dayjs(event.time).fromNow()}
+                  </div>
+                  <div className="text-accent-purple text-small">
+                    {event.amountExa} EPEAQ
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
