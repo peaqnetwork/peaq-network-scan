@@ -1,4 +1,32 @@
+import { useEffect, useState } from "react";
+import getApi from "../libs/api";
+
 export default function Validators() {
+  const [validators, setValidators] = useState([]);
+
+  useEffect(() => {
+    let unsubscribeAll = null;
+
+    const getConnectedPeers = async () => {
+      const api = await getApi();
+      try {
+        unsubscribeAll = await api.rpc.system.peers((peers) => {
+          const peersArr = peers.toHuman();
+          // Validators are peers with role AUTHORITY
+          const validatorPeers = peersArr.filter(
+            (peer) => peer.roles === "AUTHORITY"
+          );
+          setValidators(validatorPeers);
+        });
+      } catch (error) {
+        console.error();
+      }
+    };
+
+    getConnectedPeers();
+    return () => unsubscribeAll && unsubscribeAll();
+  }, []);
+
   return (
     <div className="validators-container">
       <div className="d-flex justify-content-space-between">
@@ -27,94 +55,23 @@ export default function Validators() {
           <thead>
             <tr>
               <th>Validator</th>
-              <th>Self-bonded</th>
-              <th>Total-bonded</th>
-              <th>Nominator</th>
-              <th>Commission</th>
-              <th>Grandpa Vote</th>
-              <th>Reward point</th>
-              <th>Latest Mining</th>
+              <th>Role</th>
+              <th>Best #</th>
+              <th>Best Hash</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="">
-                {" "}
-                <span className="text-accent-purple">0xcd2d8b2cb...</span>
-              </td>
-              <td className="text-dark-white">1 PEAQ</td>
-              <td className="text-dark-white">4,283,232.234 PEAQ</td>
-              <td className="text-accent-purple">12</td>
-              <td className="text-dark-white">1.00%</td>
-              <td className="text-dark-white">1421</td>
-              <td className="text-dark-white">1820</td>
-              <td className="text-accent-purple">8012377</td>
-            </tr>
-            <tr>
-              <td className="">
-                {" "}
-                <span className="text-accent-purple">0xcd2d8b2cb...</span>
-              </td>
-              <td className="text-dark-white">1 PEAQ</td>
-              <td className="text-dark-white">4,283,232.234 PEAQ</td>
-              <td className="text-accent-purple">12</td>
-              <td className="text-dark-white">1.00%</td>
-              <td className="text-dark-white">1421</td>
-              <td className="text-dark-white">1820</td>
-              <td className="text-accent-purple">8012377</td>
-            </tr>
-            <tr>
-              <td className="">
-                {" "}
-                <span className="text-accent-purple">0xcd2d8b2cb...</span>
-              </td>
-              <td className="text-dark-white">1 PEAQ</td>
-              <td className="text-dark-white">4,283,232.234 PEAQ</td>
-              <td className="text-accent-purple">12</td>
-              <td className="text-dark-white">1.00%</td>
-              <td className="text-dark-white">1421</td>
-              <td className="text-dark-white">1820</td>
-              <td className="text-accent-purple">8012377</td>
-            </tr>
-            <tr>
-              <td className="">
-                {" "}
-                <span className="text-accent-purple">0xcd2d8b2cb...</span>
-              </td>
-              <td className="text-dark-white">1 PEAQ</td>
-              <td className="text-dark-white">4,283,232.234 PEAQ</td>
-              <td className="text-accent-purple">12</td>
-              <td className="text-dark-white">1.00%</td>
-              <td className="text-dark-white">1421</td>
-              <td className="text-dark-white">1820</td>
-              <td className="text-accent-purple">8012377</td>
-            </tr>
-            <tr>
-              <td className="">
-                {" "}
-                <span className="text-accent-purple">0xcd2d8b2cb...</span>
-              </td>
-              <td className="text-dark-white">1 PEAQ</td>
-              <td className="text-dark-white">4,283,232.234 PEAQ</td>
-              <td className="text-accent-purple">12</td>
-              <td className="text-dark-white">1.00%</td>
-              <td className="text-dark-white">1421</td>
-              <td className="text-dark-white">1820</td>
-              <td className="text-accent-purple">8012377</td>
-            </tr>
-            <tr>
-              <td className="">
-                {" "}
-                <span className="text-accent-purple">0xcd2d8b2cb...</span>
-              </td>
-              <td className="text-dark-white">1 PEAQ</td>
-              <td className="text-dark-white">4,283,232.234 PEAQ</td>
-              <td className="text-accent-purple">12</td>
-              <td className="text-dark-white">1.00%</td>
-              <td className="text-dark-white">1421</td>
-              <td className="text-dark-white">1820</td>
-              <td className="text-accent-purple">8012377</td>
-            </tr>
+            {validators.map((validator) => (
+              <tr key={validator.peerId}>
+                <td className="">
+                  {" "}
+                  <span className="text-accent-purple">{validator.peerId}</span>
+                </td>
+                <td className="text-dark-white">{validator.roles}</td>
+                <td className="text-dark-white">{validator.bestNumber}</td>
+                <td className="text-accent-purple">{validator.bestHash}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
