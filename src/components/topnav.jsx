@@ -57,10 +57,10 @@ export default function TopNav() {
             />
           </svg>
         </a>
-        <a href="/" className="">
+        {/* <a href="/" className="">
           Staking
-        </a>
-        <a href="#news">
+        </a> */}
+        {/* <a href="#news">
           Governance{" "}
           <svg
             width="12"
@@ -75,24 +75,36 @@ export default function TopNav() {
               fillOpacity="0.5"
             />
           </svg>
-        </a>
+        </a> */}
         <a href="#contact">Tools</a>
         <a href="/" className="">
           Accounts
         </a>
-        <span className="nav-icon" onClick={() => setIsNavOpen(isNavOpen => !isNavOpen)} >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z" fill="#979798"/>
-</svg>
-      </span>
+        <span
+          className="nav-icon"
+          onClick={() => setIsNavOpen((isNavOpen) => !isNavOpen)}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 6H21V8H3V6ZM3 11H21V13H3V11ZM3 16H21V18H3V16Z"
+              fill="#979798"
+            />
+          </svg>
+        </span>
       </div>
       <div style={{ clear: "both" }}></div>
       <div className="chain-info-container">
         {" "}
-        <span className="chain-info text-accent-purple">
+        {/* <span className="chain-info text-accent-purple">
           PEAQ $0.201 (+0.32%)
-        </span>
-        <input type="text" placeholder="        Search" />
+        </span> */}
+        {/* <input type="text" placeholder="        Search" /> */}
       </div>
     </nav>
   );
