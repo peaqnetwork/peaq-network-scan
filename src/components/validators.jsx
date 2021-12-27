@@ -44,7 +44,7 @@ export default function Validators() {
             />
           </svg>
 
-          <h3 className="ml-3">Validators</h3>
+          <h3 className="ml-3">Validators/Connected Peers</h3>
         </div>
         <a href="/validators" className="button small">
           All
@@ -65,7 +65,9 @@ export default function Validators() {
               <tr key={validator.peerId}>
                 <td className="">
                   {" "}
-                  <span className="text-accent-purple">{validator.peerId}</span>
+                  <span className="text-accent-purple">
+                    {validator.peerId.slice(0, 10)}...
+                  </span>
                 </td>
                 <td className="text-dark-white">{validator.roles}</td>
                 <td className="text-dark-white">{validator.bestNumber}</td>

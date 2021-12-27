@@ -27,7 +27,7 @@ export default function Snapshot() {
       const bestNumber = api.derive.chain.bestNumberFinalized;
       bestNumber((number) => {
         setBlockNumber(number.toNumber());
-        // setBlockNumberTimer(0);
+        setBlockNumberTimer(0);
         // validators((val) => {
         //   console.log(val);
         // });
@@ -43,14 +43,14 @@ export default function Snapshot() {
     return () => unsubscribeAll && unsubscribeAll();
   }, []);
 
-  // const timer = () => {
-  //   setBlockNumberTimer((time) => time + 1);
-  // };
+  const timer = () => {
+    setBlockNumberTimer((time) => time + 1);
+  };
 
-  // useEffect(() => {
-  //   const id = setInterval(timer, 1000);
-  //   return () => clearInterval(id);
-  // }, []);
+  useEffect(() => {
+    const id = setInterval(timer, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     const getConstants = async () => {
@@ -58,12 +58,37 @@ export default function Snapshot() {
       const issuance = await api.query.balances.totalIssuance();
       // const validators = await api.query.session.validators();
 
+      console.log("inum", issuance.toHuman());
+
       setTotalIssuance(issuance.toString());
       // if (validators && validators.length > 0) {
       //   setValidatorsCount(validators.length);
       // }
     };
     getConstants();
+  }, []);
+
+  useEffect(() => {
+    let unsubscribeAll = null;
+
+    const getConnectedPeers = async () => {
+      const api = await getApi();
+      try {
+        unsubscribeAll = await api.rpc.system.peers((peers) => {
+          const peersArr = peers.toHuman();
+          // Validators are peers with role AUTHORITY
+          const validatorPeers = peersArr.filter(
+            (peer) => peer.roles === "AUTHORITY"
+          );
+          setValidatorsCount(validatorPeers.length);
+        });
+      } catch (error) {
+        console.error();
+      }
+    };
+
+    getConnectedPeers();
+    return () => unsubscribeAll && unsubscribeAll();
   }, []);
 
   return (
@@ -74,37 +99,43 @@ export default function Snapshot() {
           <p className="snapshot-value">{blockNumber}</p>
         </div>
         <div className="snapshot-item">
+          <p className="snapshot-label">Last Block</p>
+          <p className="snapshot-value">{blockNumberTimer} s</p>
+        </div>
+        {/* <div className="snapshot-item">
           <p className="snapshot-label">Signed Extrinsics</p>
           <p className="snapshot-value">{signedExtrinsics}</p>
-        </div>
-        <div className="snapshot-item">
+        </div> */}
+        {/* <div className="snapshot-item">
           <p className="snapshot-label">Transfers</p>
           <p className="snapshot-value">{transfers}</p>
-        </div>
-        <div className="snapshot-item">
+        </div> */}
+        {/* <div className="snapshot-item">
           <p className="snapshot-label">Holders</p>
           <p className="snapshot-value">{holders}</p>
-        </div>
+        </div> */}
       </div>
       <div className="snapshot-row">
         <div className="snapshot-item">
           <p className="snapshot-label">Total Issuance</p>
-          <p className="snapshot-value">{Number(totalIssuance)}</p>
+          <p className="snapshot-value">
+            {Number(totalIssuance) / 1000000000000000000000000} YPEAQ
+          </p>
         </div>
-        <div className="snapshot-item">
+        {/* <div className="snapshot-item">
           <p className="snapshot-label">Staked Vaue</p>
           <p className="snapshot-value">
             {staked.value}({staked.percentage}%)
           </p>
-        </div>
+        </div> */}
         <div className="snapshot-item">
           <p className="snapshot-label">Validators</p>
           <p className="snapshot-value">{validatorsCount}</p>
         </div>
-        <div className="snapshot-item">
+        {/* <div className="snapshot-item">
           <p className="snapshot-label">Inflation Rate</p>
           <p className="snapshot-value">{inflation}%</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
