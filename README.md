@@ -6,7 +6,7 @@ Peaq blockchain explorer
 
 To run the project locally:
 
-- clone project repo
+-  git clone https://github.com/peaqnetwork/peaq-network-scan.git
 - `cd` into project folder
 - install dependencies `npm install`
 - start project `npm start`
