@@ -85,6 +85,7 @@ livenessProbe:
   # Optional distinct liveness probe path, if empty the probePath is used
   probePath: ""
 readinessProbe:
+  initialDelaySeconds: 30
   failureThreshold: 1
   periodSeconds: 10
   successThreshold: 1
