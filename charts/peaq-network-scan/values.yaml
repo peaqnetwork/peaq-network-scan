@@ -65,7 +65,7 @@ service:
   name: peaq-network-scan
   type: ClusterIP
   externalPort: 80
-  internalPort: 3000
+  internalPort: 80
   annotations: {}
   # Add labels to the service
   labels: {}
@@ -85,7 +85,7 @@ livenessProbe:
   # Optional distinct liveness probe path, if empty the probePath is used
   probePath: ""
 readinessProbe:
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   failureThreshold: 1
   periodSeconds: 10
   successThreshold: 1
