@@ -75,7 +75,7 @@ resources:
     memory: 1024Mi
   requests:
     cpu: 0.1
-    memory: 128Mi
+    memory: 600Mi
 probePath: /
 livenessProbe:
   initialDelaySeconds: 60
