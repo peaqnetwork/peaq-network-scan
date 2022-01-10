@@ -18,11 +18,11 @@ spec:
           name: ""
           resources:
             requests:
-              cpu: 0.1
-              memory: 128Mi
+              cpu: 0.2
+              memory: 1025Mi
             limits:
               cpu: 400m
-              memory: 512Mi
+              memory: 2049Mi
           volumeMounts:
           - mountPath: /tekton/home/npm
             name: npmrc
