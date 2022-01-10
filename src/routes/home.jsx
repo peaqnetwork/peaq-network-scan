@@ -5,7 +5,7 @@ import Validators from "../components/validators";
 export default function Home() {
   return (
     <div className="page">
-      <h1 style="color:rgb(255, 99, 71);">Hello World</h1>
+      <h1>Hello World</h1>
       <Snapshot />
       <Blocks />
       <Validators />
