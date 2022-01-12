@@ -8,6 +8,11 @@ spec:
     optional: false
     source: "pullrequest.yaml"
   postsubmits:
+  - name: devbranch
+    context: "devbranch"
+    source: "devbranch.yaml"
+    branches:
+    - ^dev$
   - name: release
     context: "release"
     source: "release.yaml"
