@@ -11,12 +11,21 @@ spec:
       taskSpec:
         metadata: {}
         stepTemplate:
-          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/go/release.yaml@versionStream
+          env:
+          - name: NPM_CONFIG_USERCONFIG
+            value: /tekton/home/npm/.npmrc
+          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/javascript/release.yaml@versionStream
           name: ""
           resources:
             requests:
+              cpu: 0.2
+              memory: 1024Mi
+            limits:
               cpu: 400m
-              memory: 600Mi
+              memory: 2048Mi
+          volumeMounts:
+          - mountPath: /tekton/home/npm
+            name: npmrc
           workingDir: /workspace/source
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
@@ -26,7 +35,9 @@ spec:
           resources: {}
         - name: jx-variables
           resources: {}
-        - name: build-make-build
+        - name: build-npm-install
+          resources: {}
+        - name: build-npm-test
           resources: {}
         - name: check-registry
           resources: {}
@@ -42,6 +53,11 @@ spec:
             #!/usr/bin/env sh
             source .jx/variables.sh
             jx promote -b --timeout 1h --no-poll --env qa
+        volumes:
+        - name: npmrc
+          secret:
+            optional: true
+            secretName: npmrc
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 12h0m0s
