@@ -52,7 +52,7 @@ spec:
           script: |
             #!/usr/bin/env sh
             source .jx/variables.sh
-            jx promote -b --timeout 1h --no-poll --env qa
+            jx promote -b --timeout 1h --no-poll --env devbr
         volumes:
         - name: npmrc
           secret:
