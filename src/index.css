@@ -163,12 +163,30 @@ body {
   border: 1px solid #979798;
   border-radius: 5px;
   margin-top: 4%;
-  margin-bottom: 4%;
+  margin-bottom: 20%;
   color: #ffffff;
   padding: 10px 30px;
 }
 .validators-table {
   overflow-x: auto;
+}
+
+.blocks-list {
+  overflow: hidden;
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+  width: 100%;
+  margin-top: 6%;
+  height: 60vh;
+  overflow: auto;
+}
+.block-list-search-container {
+  background-color: #212427;
+  width: 700px;
+  height: 45px;
+  border-radius: 5px;
 }
 
 /* Table */
@@ -212,7 +230,7 @@ tr:nth-child(even) {
 
 /* Footer */
 .footer {
-  /* position: fixed; */
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
