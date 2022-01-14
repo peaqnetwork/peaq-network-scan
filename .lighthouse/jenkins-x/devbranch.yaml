@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   creationTimestamp: null
-  name: release
+  name: devbranch
 spec:
   pipelineSpec:
     tasks:
@@ -49,6 +49,10 @@ spec:
           resources: {}
         - name: promote-jx-promote
           resources: {}
+          script: |
+            #!/usr/bin/env sh
+            source .jx/variables.sh
+            jx promote -b --timeout 1h --no-poll --env devbr
         volumes:
         - name: npmrc
           secret:
