@@ -189,6 +189,10 @@ body {
   border-radius: 5px;
 }
 
+.not-found-button {
+  margin-top: 2em;
+}
+
 /* Table */
 table {
   border-collapse: collapse;

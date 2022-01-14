@@ -8,6 +8,7 @@ import {
   setExistingBlock,
 } from "../store/slices/latest-blocks-slice";
 import { setCurrentBlockNumber } from "../store/slices/current-block-number-slice";
+import { Link } from "react-router-dom";
 
 export default function BlocksLatest() {
   // const [latestBlocks, setLatestBlocks] = useState([]);
@@ -63,6 +64,7 @@ export default function BlocksLatest() {
                         extrinsicsCount,
                         eventsCount,
                         time: new Date().toString(),
+                        hash,
                       })
                     );
                     dispatch(setCurrentBlockNumber(blockNumber));
@@ -73,6 +75,7 @@ export default function BlocksLatest() {
                         extrinsicsCount,
                         eventsCount,
                         time: new Date().toString(),
+                        hash,
                       })
                     );
                     console.log(
@@ -121,9 +124,9 @@ export default function BlocksLatest() {
 
           <h3 className="ml-3">Latest blocks</h3>
         </div>
-        <a href="/blocks" className="button small">
+        <Link to="/blocks" className="button small">
           All
-        </a>
+        </Link>
       </div>
       <div>
         <table className="table">
