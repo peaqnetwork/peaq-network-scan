@@ -4,10 +4,12 @@ import TopNav from "./components/topnav";
 import Blocks from "./routes/blocks";
 import Home from "./routes/home";
 import NotFound from "./components/not-found";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <TopNav />
       <BrowserRouter>
         <Routes>
@@ -17,7 +19,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Footer />
-    </>
+    </Provider>
   );
 }
 
