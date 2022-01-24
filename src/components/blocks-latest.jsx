@@ -2,10 +2,23 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import getApi from "../libs/api";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setLatestBlocks,
+  setExistingBlock,
+} from "../store/slices/latest-blocks-slice";
+import { setCurrentBlockNumber } from "../store/slices/current-block-number-slice";
+import { Link } from "react-router-dom";
 
 export default function BlocksLatest() {
-  const [latestBlocks, setLatestBlocks] = useState([]);
-  const [currentBlockNumber, setCurrentBlockNumber] = useState(0);
+  // const [latestBlocks, setLatestBlocks] = useState([]);
+  // const [currentBlockNumber, setCurrentBlockNumber] = useState(0);
+
+  const currentBlockNumber = useSelector(
+    (state) => state.currentBlockNumber.value
+  );
+  const latestBlocks = useSelector((state) => state.latestBlocks.value);
+  const dispatch = useDispatch();
 
   dayjs.extend(relativeTime);
 
@@ -14,62 +27,81 @@ export default function BlocksLatest() {
 
     const getBlocks = async () => {
       const api = await getApi();
-      const blockInfo = api.rpc.chain.subscribeNewHeads;
-      blockInfo((header) => {
+
+      unsubscribeAll = await api.rpc.chain.subscribeNewHeads((header) => {
+        // console.log(`Chain is at block: #${header.number}`);
         const blockNumber = header.number.toNumber();
-        // console.log(blockNumber);
+        const hash = header.hash.toHex();
 
-        if (blockNumber > currentBlockNumber) {
-          const hash = header.hash.toHex();
+        // Get number of extrinsics
+        api.rpc.chain
+          .getBlock(hash)
+          .then((signedBlock) => {
+            const extrinsicsCount = signedBlock.block.extrinsics.length;
+            // console.log(extrinsicsCount);
 
-          // Get number of extrinsics
-          api.rpc.chain
-            .getBlock(hash)
-            .then((signedBlock) => {
-              const extrinsicsCount = signedBlock.block.extrinsics.length;
-              // console.log(extrinsicsCount);
+            // Get number of events
+            api.query.system.events
+              .at(hash)
+              .then((allRecords) => {
+                signedBlock.block.extrinsics.forEach((method, index) => {
+                  // filter the specific events based on the phase and then the
+                  // index of our extrinsic in the block
+                  const events = allRecords.filter(
+                    ({ phase }) =>
+                      phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(index)
+                  );
+                  const eventsCount = events.length;
 
-              // Get number of events
-              api.query.system.events
-                .at(hash)
-                .then((allRecords) => {
-                  signedBlock.block.extrinsics.forEach((method, index) => {
-                    // filter the specific events based on the phase and then the
-                    // index of our extrinsic in the block
-                    const events = allRecords.filter(
-                      ({ phase }) =>
-                        phase.isApplyExtrinsic &&
-                        phase.asApplyExtrinsic.eq(index)
+                  // if blocknumber is less than current block number:
+                  // // replace that block with current data.
+                  // // else add new block
+
+                  if (blockNumber > currentBlockNumber) {
+                    dispatch(
+                      setLatestBlocks({
+                        blockNumber,
+                        extrinsicsCount,
+                        eventsCount,
+                        time: new Date().toString(),
+                        hash,
+                      })
                     );
-                    const eventsCount = events.length;
-
-                    // Set new block data
-                    let newBlocks = latestBlocks.slice(0, 100); // Only keep the last 100 blocks. @TODO Set max number of records in config
-
-                    newBlocks.unshift({
+                    dispatch(setCurrentBlockNumber(blockNumber));
+                  } else {
+                    dispatch(
+                      setExistingBlock({
+                        blockNumber,
+                        extrinsicsCount,
+                        eventsCount,
+                        time: new Date().toString(),
+                        hash,
+                      })
+                    );
+                    console.log(
+                      "previous/repeated block",
                       blockNumber,
+                      "extrinsics",
                       extrinsicsCount,
+                      "events",
                       eventsCount,
-                      time: new Date().toString(),
-                    });
-                    setCurrentBlockNumber(blockNumber);
-                    setLatestBlocks(newBlocks);
-                  });
-                })
-                .catch(console.error);
-            })
-            .catch(console.error);
-        }
-      })
-        .then((unsub) => {
-          unsubscribeAll = unsub;
-        })
-        .catch(console.error);
+                      "extr",
+                      signedBlock.block.extrinsics,
+                      "evnt",
+                      events
+                    );
+                  }
+                });
+              })
+              .catch(console.error);
+          })
+          .catch(console.error);
+      });
     };
     getBlocks();
 
     return () => unsubscribeAll && unsubscribeAll();
-  }, [latestBlocks]);
+  }, []);
 
   return (
     <div className="latest-blocks">
@@ -92,9 +124,9 @@ export default function BlocksLatest() {
 
           <h3 className="ml-3">Latest blocks</h3>
         </div>
-        <a href="/blocks" className="button small">
+        <Link to="/blocks" className="button small">
           All
-        </a>
+        </Link>
       </div>
       <div>
         <table className="table">
