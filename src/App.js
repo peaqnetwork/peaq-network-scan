@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/footer";
 import TopNav from "./components/topnav";
 import Blocks from "./routes/blocks";
+import BlockDetails from "./routes/block-details";
 import Home from "./routes/home";
 import NotFound from "./components/not-found";
 import { Provider } from "react-redux";
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/blocks" element={<Blocks />}></Route>
+          <Route path="/block/:blockNumber" element={<BlockDetails />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

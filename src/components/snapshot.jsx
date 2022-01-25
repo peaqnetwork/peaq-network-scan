@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 // import { useSubstrate } from "../libs/substrate";
 import getApi from "../libs/api";
+import { formatBalance } from "@polkadot/util";
 
 export default function Snapshot() {
   // const { api } = useSubstrate();
@@ -58,7 +59,13 @@ export default function Snapshot() {
       const issuance = await api.query.balances.totalIssuance();
       // const validators = await api.query.session.validators();
 
+      const data = await api.rpc.state.getMetadata();
+
       console.log("inum", issuance.toHuman());
+
+      console.log("formatted bal", formatBalance(issuance));
+
+      console.log(data.toHuman());
 
       setTotalIssuance(issuance.toString());
       // if (validators && validators.length > 0) {
