@@ -135,9 +135,12 @@ export default function BlocksLatest() {
               <tr key={block.blockNumber}>
                 <td className="text-large">
                   Block#{" "}
-                  <span className="text-accent-purple">
+                  <a
+                    href={`/block/${block.blockNumber}`}
+                    className="text-accent-purple text-decoration-none"
+                  >
                     {block.blockNumber}
-                  </span>
+                  </a>
                 </td>
                 <td className="text-accent-purple text-small">
                   {block.extrinsicsCount} Extrinsic
