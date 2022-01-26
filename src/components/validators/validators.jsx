@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getApi from "../libs/api";
+import getApi from "../../libs/api";
 
 export default function Validators() {
   const [validators, setValidators] = useState([]);
@@ -23,8 +23,12 @@ export default function Validators() {
       }
     };
 
-    getConnectedPeers();
-    return () => unsubscribeAll && unsubscribeAll();
+    const timer = setInterval(getConnectedPeers, 10000);
+
+    return () => {
+      clearInterval(timer);
+      unsubscribeAll && unsubscribeAll();
+    };
   }, []);
 
   return (
