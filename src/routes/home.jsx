@@ -1,6 +1,6 @@
 import Blocks from "../components/blocks";
 import Snapshot from "../components/snapshot";
-import Validators from "../components/validators";
+import Validators from "../components/validators/validators";
 
 export default function Home() {
   return (
