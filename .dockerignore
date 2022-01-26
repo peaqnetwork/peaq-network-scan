@@ -1,0 +1,9 @@
+charts/
+.lighthouse/
+preview/
+Dockerfile
+package-lock.json
+.vscode/
+node_modules
+build
+OWNERS
