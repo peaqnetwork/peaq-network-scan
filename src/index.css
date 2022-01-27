@@ -17,6 +17,19 @@ body {
   /* line-height: 1.6; */
   background-color: #131416;
 }
+a {
+  text-decoration: none;
+}
+
+/* Badge */
+.badge {
+  background: rgba(166, 163, 255, 0.3);
+  border-radius: 5.83333px;
+  color: #fff;
+  /* display: inline-block; */
+  padding: 6px;
+  text-align: center;
+}
 
 /* Button */
 .button {
@@ -86,11 +99,14 @@ body {
 }
 
 /* Text utils */
+.text-accent-purple {
+  color: #a6a3ff;
+}
 .text-dark-white {
   color: #979798;
 }
-.text-accent-purple {
-  color: #a6a3ff;
+.text-white {
+  color: #fff;
 }
 
 /* Page */
@@ -156,6 +172,59 @@ body {
   float: right;
   height: 420px;
 }
+.block-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.block-snapshot {
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 4%;
+  overflow: auto;
+}
+.block-snapshot-title {
+  /* line-height: 72px; */
+  font-weight: 600;
+}
+/* .block-snapshot-detail {
+   line-height: 72px;
+} */
+.block-data {
+  margin-top: 5rem;
+}
+.block-data-title {
+  /* font-size: 20px; */
+  /* line-height: 24px; */
+  margin-right: 3rem;
+}
+.block-data-tabs {
+  border-bottom: 1px solid #979798;
+  padding-bottom: 20px;
+}
+.block-data-tab {
+  display: inline-block;
+  transform: translateY(20px);
+}
+.block-data-tab.active {
+  color: #fff;
+  border-bottom: 1px solid #a6a3ff;
+  padding-bottom: 20px;
+}
+.block-data-tab-details {
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 4%;
+  overflow: auto;
+}
 
 /* Validators */
 .validators-container {
@@ -201,12 +270,12 @@ table {
 }
 table thead th {
   text-align: left;
-  padding: 16px;
+  padding: 16px 46px;
   font-size: 16px;
 }
 table tbody td {
   text-align: left;
-  padding: 16px;
+  padding: 16px 46px;
   font-size: 16px;
 }
 tr:nth-child(even) {
@@ -253,6 +322,16 @@ tr:nth-child(even) {
 
 /* Media queries */
 @media screen and (max-width: 600px) {
+  .badge {
+    padding: 6px;
+    margin-left: 0;
+    font-size: 12px;
+  }
+  .block-data-title {
+    font-size: 15px;
+    /* line-height: 24px; */
+    margin-right: 1rem;
+  }
   .button.small {
     width: 100px;
     height: 35px;
@@ -318,7 +397,7 @@ tr:nth-child(even) {
     font-size: 80%;
   }
   td svg {
-    width: 20%;
+    /* width: 15px; */
   }
 
   .validators-container {
