@@ -8,6 +8,7 @@ import {
   setExistingBlock,
 } from "../store/slices/latest-blocks-slice";
 import { setCurrentBlockNumber } from "../store/slices/current-block-number-slice";
+import { Link } from "react-router-dom";
 
 export default function Blocks() {
   const latestBlocks = useSelector((state) => state.latestBlocks.value);
@@ -127,12 +128,12 @@ export default function Blocks() {
             {latestBlocks.map((block) => (
               <tr key={block.blockNumber}>
                 <td className="">
-                  <a
-                    href={`/block/${block.blockNumber}`}
+                  <Link
+                    to={`/block/${block.blockNumber}`}
                     className="text-accent-purple"
                   >
                     {block.blockNumber}
-                  </a>
+                  </Link>
                 </td>
                 <td className="text-dark-white text-small">
                   <div className="d-flex align-items-center">

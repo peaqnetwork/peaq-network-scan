@@ -1,6 +1,6 @@
-# PeaqScan
+# peaqScan
 
-Peaq blockchain explorer
+peaq blockchain explorer
 
 ## Local installation
 
