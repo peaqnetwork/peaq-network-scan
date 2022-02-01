@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
-// import { useSubstrate } from "../libs/substrate";
 import getApi from "../libs/api";
 import { formatBalance } from "@polkadot/util";
+import { useSelector, useDispatch } from "react-redux";
+import { setBestNumberFinalized } from "../store/slices/best-number-finalized";
 
 export default function Snapshot() {
-  // const { api } = useSubstrate();
-  const [blockNumber, setBlockNumber] = useState(0);
+  const dispatch = useDispatch();
+  const bestNumberFinalized = useSelector(
+    (state) => state.bestNumberFinalized.value
+  );
+  console.log(bestNumberFinalized);
+  // const [blockNumber, setBlockNumber] = useState(0);
   const [blockNumberTimer, setBlockNumberTimer] = useState(0);
-  const [inflation, setInflation] = useState(0);
-  const [staked, setStaked] = useState({ value: 0, percentage: 0 });
-  const [signedExtrinsics, setSignedExtrinsics] = useState(0);
-  const [transfers, setTransfers] = useState(0);
-  const [holders, setHolders] = useState(0);
   const [totalIssuance, setTotalIssuance] = useState(0);
   const [validatorsCount, setValidatorsCount] = useState(0);
-
-  // const bestNumber = finalized
-  //   ? api.derive.chain.bestNumberFinalized
-  //   : api.derive.chain.bestNumber;
 
   useEffect(() => {
     let unsubscribeAll = null;
@@ -27,11 +23,9 @@ export default function Snapshot() {
 
       const bestNumber = api.derive.chain.bestNumberFinalized;
       bestNumber((number) => {
-        setBlockNumber(number.toNumber());
+        // setBlockNumber(number.toNumber());
+        dispatch(setBestNumberFinalized(number.toNumber()));
         setBlockNumberTimer(0);
-        // validators((val) => {
-        //   console.log(val);
-        // });
       })
         .then((unsub) => {
           unsubscribeAll = unsub;
@@ -103,24 +97,12 @@ export default function Snapshot() {
       <div className="snapshot-row">
         <div className="snapshot-item">
           <p className="snapshot-label">Finalized Blocks</p>
-          <p className="snapshot-value">{blockNumber}</p>
+          <p className="snapshot-value">{bestNumberFinalized}</p>
         </div>
         <div className="snapshot-item">
           <p className="snapshot-label">Last Block</p>
           <p className="snapshot-value">{blockNumberTimer} s</p>
         </div>
-        {/* <div className="snapshot-item">
-          <p className="snapshot-label">Signed Extrinsics</p>
-          <p className="snapshot-value">{signedExtrinsics}</p>
-        </div> */}
-        {/* <div className="snapshot-item">
-          <p className="snapshot-label">Transfers</p>
-          <p className="snapshot-value">{transfers}</p>
-        </div> */}
-        {/* <div className="snapshot-item">
-          <p className="snapshot-label">Holders</p>
-          <p className="snapshot-value">{holders}</p>
-        </div> */}
       </div>
       <div className="snapshot-row">
         <div className="snapshot-item">
@@ -129,20 +111,10 @@ export default function Snapshot() {
             {Number(totalIssuance) / 1000000000000000000000000} YPEAQ
           </p>
         </div>
-        {/* <div className="snapshot-item">
-          <p className="snapshot-label">Staked Vaue</p>
-          <p className="snapshot-value">
-            {staked.value}({staked.percentage}%)
-          </p>
-        </div> */}
         <div className="snapshot-item">
           <p className="snapshot-label">Validators</p>
           <p className="snapshot-value">{validatorsCount}</p>
         </div>
-        {/* <div className="snapshot-item">
-          <p className="snapshot-label">Inflation Rate</p>
-          <p className="snapshot-value">{inflation}%</p>
-        </div> */}
       </div>
     </div>
   );

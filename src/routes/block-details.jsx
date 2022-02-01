@@ -5,10 +5,11 @@ import BlockTitleSwitch from "../components/block-details/block-title-switch";
 
 export default function BlockDetails() {
   const { blockNumber } = useParams();
+
   return (
     <div className="page">
       <BlockTitleSwitch blockNumber={blockNumber} />
-      <BlockSnapshot block={blockNumber} />
+      <BlockSnapshot blockNumber={blockNumber} />
       <BlockData />
     </div>
   );
