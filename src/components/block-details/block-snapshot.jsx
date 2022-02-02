@@ -19,6 +19,7 @@ export default function BlockSnapshot({ blockNumber }) {
     const getBlock = async () => {
       try {
         const api = await getApi();
+
         const blockHash = await api.rpc.chain.getBlockHash(blockNumber);
         const signedBlock = await api.rpc.chain.getBlock(blockHash);
         const blockObj = signedBlock.toHuman();
@@ -35,6 +36,7 @@ export default function BlockSnapshot({ blockNumber }) {
         blockObj.time = recordedBlock?.time;
 
         setBlock(blockObj);
+        api.disconnect();
       } catch (err) {
         console.error(err);
       }
