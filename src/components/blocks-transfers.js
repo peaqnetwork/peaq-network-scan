@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import getApi from "../libs/api";
+import { useSubstrateState } from "../libs/substrate";
 
 dayjs.extend(relativeTime);
 
 export default function BlocksTransfers() {
   const [transferEvents, setTransferEvents] = useState([]);
 
+  const { api } = useSubstrateState();
+
   useEffect(() => {
     let unsubscribeAll = null;
 
     const getAllEvents = async () => {
-      const api = await getApi();
+      // const api = await getApi();
 
       unsubscribeAll = await api.query.system.events((events) => {
         // loop through the Vec<EventRecord>

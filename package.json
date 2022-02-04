@@ -3,14 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@polkadot/api": "^6.7.2",
-    "@polkadot/util-crypto": "^7.8.2",
+    "@polkadot/api": "^7.3.1",
+    "@polkadot/extension-dapp": "^0.42.5",
+    "@polkadot/keyring": "^8.3.1",
+    "@polkadot/networks": "^8.3.1",
+    "@polkadot/types": "^7.3.1",
+    "@polkadot/ui-keyring": "^0.89.1",
+    "@polkadot/ui-settings": "^0.89.1",
+    "@polkadot/util": "^8.3.1",
+    "@polkadot/util-crypto": "^8.3.1",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "stream-browserify": "^3.0.0",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.10.7",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -20,9 +29,9 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@polkadotjs/api)/\"",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --transformIgnorePatterns \"node_modules/(?!@polkadotjs/api)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -30,6 +39,10 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
   },
   "browserslist": {
     "production": [
@@ -46,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "jest-watch-typeahead": "^0.6.5"
+    "jest-watch-typeahead": "^0.6.5",
+    "react-app-rewired": "^2.1.11"
   }
 }

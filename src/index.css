@@ -287,8 +287,14 @@ tr:nth-child(even) {
 .d-flex {
   display: flex;
 }
+.flex-direction-column {
+  flex-direction: column;
+}
 .justify-content-space-between {
   justify-content: space-between;
+}
+.justify-content-center {
+  justify-content: center;
 }
 .align-items-center {
   align-items: center;
@@ -299,6 +305,17 @@ tr:nth-child(even) {
 }
 .mr-3 {
   margin-right: 12px;
+}
+
+/* Message bar */
+.message-bar {
+  background-color: #212427;
+  padding: 20px;
+  color: #fff;
+}
+.message-bar .header {
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 /* Footer */
