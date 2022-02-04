@@ -1,14 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import getApi from "../libs/api";
-import {
-  setLatestBlocks,
-  setExistingBlock,
-} from "../store/slices/latest-blocks-slice";
+import { setLatestBlocks } from "../store/slices/latest-blocks-slice";
 import { setCurrentBlockNumber } from "../store/slices/current-block-number-slice";
 import { Link } from "react-router-dom";
+import { useSubstrateState } from "../libs/substrate";
 
 export default function Blocks() {
   const latestBlocks = useSelector((state) => state.latestBlocks.value);
@@ -20,25 +17,23 @@ export default function Blocks() {
 
   const dispatch = useDispatch();
 
+  const { api } = useSubstrateState();
+
   useEffect(() => {
     let unsubscribeAll = null;
 
     const getBlocks = async () => {
-      const api = await getApi();
+      // const api = await getApi();
 
       unsubscribeAll = await api.rpc.chain.subscribeAllHeads((header) => {
         // console.log(`Chain is at block: #${header.number}`);
         const blockNumber = header.number.toNumber();
         const hash = header.hash.toHex();
 
-        // console.log("header", header.toHuman());
-
         // Get number of extrinsics
         api.rpc.chain
           .getBlock(hash)
           .then((signedBlock) => {
-            // console.log("block", signedBlock.toHuman());
-
             // Get block finality
 
             const extrinsicsCount = signedBlock.block.extrinsics.length;
@@ -107,6 +102,7 @@ export default function Blocks() {
     getBlocks();
 
     return () => unsubscribeAll && unsubscribeAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

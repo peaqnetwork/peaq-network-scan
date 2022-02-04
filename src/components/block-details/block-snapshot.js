@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import getApi from "../../libs/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useSubstrateState } from "../../libs/substrate";
 
 dayjs.extend(relativeTime);
 
@@ -15,11 +15,11 @@ export default function BlockSnapshot({ blockNumber }) {
 
   const copyText = (text) => navigator.clipboard.writeText(text);
 
+  const { api } = useSubstrateState();
+
   useEffect(() => {
     const getBlock = async () => {
       try {
-        const api = await getApi();
-
         const blockHash = await api.rpc.chain.getBlockHash(blockNumber);
         const signedBlock = await api.rpc.chain.getBlock(blockHash);
         const blockObj = signedBlock.toHuman();
@@ -36,18 +36,14 @@ export default function BlockSnapshot({ blockNumber }) {
         blockObj.time = recordedBlock?.time;
 
         setBlock(blockObj);
-        api.disconnect();
       } catch (err) {
         console.error(err);
       }
     };
 
-    // Get the most updated block data
-    const timer = setInterval(getBlock, 10000);
-    return () => {
-      clearInterval(timer);
-    };
-  });
+    getBlock();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blockNumber]);
 
   return block ? (
     <div className="block-snapshot">

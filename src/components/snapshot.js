@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import getApi from "../libs/api";
-import { formatBalance } from "@polkadot/util";
 import { useSelector, useDispatch } from "react-redux";
 import { setBestNumberFinalized } from "../store/slices/best-number-finalized";
+import { useSubstrateState } from "../libs/substrate";
 
 export default function Snapshot() {
+  const { api } = useSubstrateState();
   const dispatch = useDispatch();
   const bestNumberFinalized = useSelector(
     (state) => state.bestNumberFinalized.value
   );
-  console.log(bestNumberFinalized);
-  // const [blockNumber, setBlockNumber] = useState(0);
+
   const [blockNumberTimer, setBlockNumberTimer] = useState(0);
   const [totalIssuance, setTotalIssuance] = useState(0);
   const [validatorsCount, setValidatorsCount] = useState(0);
@@ -19,8 +18,6 @@ export default function Snapshot() {
     let unsubscribeAll = null;
 
     const getSnapshot = async () => {
-      const api = await getApi();
-
       const bestNumber = api.derive.chain.bestNumberFinalized;
       bestNumber((number) => {
         // setBlockNumber(number.toNumber());
@@ -32,11 +29,10 @@ export default function Snapshot() {
         })
         .catch(console.error);
     };
-
     getSnapshot();
 
     return () => unsubscribeAll && unsubscribeAll();
-  }, []);
+  }, [api.derive.chain]);
 
   const timer = () => {
     setBlockNumberTimer((time) => time + 1);
@@ -49,22 +45,8 @@ export default function Snapshot() {
 
   useEffect(() => {
     const getConstants = async () => {
-      const api = await getApi();
       const issuance = await api.query.balances.totalIssuance();
-      // const validators = await api.query.session.validators();
-
-      const data = await api.rpc.state.getMetadata();
-
-      console.log("inum", issuance.toHuman());
-
-      console.log("formatted bal", formatBalance(issuance));
-
-      console.log(data.toHuman());
-
       setTotalIssuance(issuance.toString());
-      // if (validators && validators.length > 0) {
-      //   setValidatorsCount(validators.length);
-      // }
     };
     getConstants();
   }, []);
@@ -73,7 +55,7 @@ export default function Snapshot() {
     let unsubscribeAll = null;
 
     const getConnectedPeers = async () => {
-      const api = await getApi();
+      // const api = await getApi();
       try {
         unsubscribeAll = await api.rpc.system.peers((peers) => {
           const peersArr = peers.toHuman();

@@ -1,5 +1,8 @@
 FROM node:lts-alpine AS builder
 
+# Add git since it is now required but not available on node alpine
+RUN apk --no-cache add git
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
