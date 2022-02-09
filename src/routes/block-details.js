@@ -10,7 +10,7 @@ export default function BlockDetails() {
     <div className="page">
       <BlockTitleSwitch blockNumber={blockNumber} />
       <BlockSnapshot blockNumber={blockNumber} />
-      <BlockData />
+      <BlockData blockNumber={blockNumber} />
     </div>
   );
 }

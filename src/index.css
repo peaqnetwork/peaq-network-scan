@@ -210,6 +210,7 @@ a {
 .block-data-tab {
   display: inline-block;
   transform: translateY(20px);
+  cursor: pointer;
 }
 .block-data-tab.active {
   color: #fff;
