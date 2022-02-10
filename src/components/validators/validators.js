@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import getApi from "../../libs/api";
+import { useSubstrateState } from "../../libs/substrate";
 
 export default function Validators() {
+  const { api } = useSubstrateState();
+
   const [validators, setValidators] = useState([]);
 
   useEffect(() => {
     let unsubscribeAll = null;
 
     const getConnectedPeers = async () => {
-      const api = await getApi();
+      // const api = await getApi();
       try {
         unsubscribeAll = await api.rpc.system.peers((peers) => {
           const peersArr = peers.toHuman();
@@ -23,12 +25,15 @@ export default function Validators() {
       }
     };
 
+    getConnectedPeers();
+
     const timer = setInterval(getConnectedPeers, 10000);
 
     return () => {
       clearInterval(timer);
       unsubscribeAll && unsubscribeAll();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

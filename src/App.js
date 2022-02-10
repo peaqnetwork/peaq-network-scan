@@ -55,7 +55,6 @@ function Main() {
         </Routes>
       </BrowserRouter>
       <Footer />
-      <h1 className="text-white">Main One</h1>
     </div>
   );
 }
