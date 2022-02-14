@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSubstrateState } from "../../libs/substrate";
+import { copyText } from "../../utils";
 
 dayjs.extend(relativeTime);
 
@@ -12,8 +13,6 @@ export default function BlockSnapshot({ blockNumber }) {
     (state) => state.bestNumberFinalized.value
   );
   const [block, setBlock] = useState(null);
-
-  const copyText = (text) => navigator.clipboard.writeText(text);
 
   const { api } = useSubstrateState();
 

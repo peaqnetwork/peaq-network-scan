@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSubstrateState } from "../../../libs/substrate";
 import ExtrinsicsData from "./extrinsics-data";
+import LogData from "./log-data";
 
 export default function BlockData({ blockNumber }) {
   const { api } = useSubstrateState();
@@ -24,7 +25,6 @@ export default function BlockData({ blockNumber }) {
         );
         blockObj.time = recordedBlock?.time;
         setBlock(blockObj);
-        // setExtrinsics(blockObj.extrinsics);
       } catch (err) {
         console.error(err);
       }
@@ -59,11 +59,14 @@ export default function BlockData({ blockNumber }) {
           } text-dark-white`}
           onClick={() => setActiveTab("log")}
         >
-          Log <span className="badge ml-3">34</span>
+          Log{" "}
+          <span className="badge ml-3">
+            {block?.block.header.digest.logs.length}
+          </span>
         </span>
       </div>
-
       {activeTab === "extrinsics" && <ExtrinsicsData block={block} />}
+      {activeTab === "log" && <LogData block={block} />}
     </div>
   );
 }
