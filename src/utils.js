@@ -3,6 +3,9 @@
  */
 
 const copyText = (text) => {
+  // Examine util object. To be removed
+  console.log("navigator.clipboard", navigator.clipboard);
+  // End of examine util object
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text);
   } else {
