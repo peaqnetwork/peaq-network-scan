@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSubstrateState } from "../../libs/substrate";
 import { copyText } from "../../utils";
+import { Link } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 
@@ -122,7 +123,9 @@ export default function BlockSnapshot({ blockNumber }) {
           <tr>
             <td className="block-snapshot-title">Parent Hash</td>
             <td className="text-accent-purple block-snapshot-detail">
-              {block.block.header.parentHash}
+              <Link to={`/block/${blockNumber - 1}`}>
+                {block.block.header.parentHash}
+              </Link>
             </td>
           </tr>
           <tr>

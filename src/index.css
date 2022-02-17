@@ -19,6 +19,7 @@ body {
 }
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* Badge */
@@ -49,6 +50,14 @@ a {
   width: 140px;
   height: 40px;
 }
+.button.tiny {
+  width: 74px;
+  height: 35px;
+  font-size: 12px;
+}
+.button.active {
+  background-color: #706cff;
+}
 
 /* TopNav */
 .topnav {
@@ -64,7 +73,7 @@ a {
 .topnav.nav-brand {
   width: 120px;
 }
-.topnav a {
+.topnav .nav-links a {
   /* float: right; */
   /* display: block; */
   color: #ffffff;
@@ -227,6 +236,17 @@ a {
   overflow: auto;
 }
 
+/* Extrinsics */
+.extrinsics-history {
+  height: 300px;
+  /* width: 100%; */
+}
+.extrinsics-filter-fields {
+  border-bottom: 1px solid #575c60;
+  padding-bottom: 10px;
+  width: 220px;
+}
+
 /* Validators */
 .validators-container {
   /* padding: 10px 30px; */
@@ -284,6 +304,13 @@ tr:nth-child(even) {
 }
 
 /* Utilities */
+/* content */
+.bordered-content-box {
+  border: 1px solid #979798;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px 30px;
+}
 /* Flex */
 .d-flex {
   display: flex;
@@ -306,6 +333,16 @@ tr:nth-child(even) {
 }
 .mr-3 {
   margin-right: 12px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.scroll-x {
+  overflow-x: scroll;
 }
 
 /* Message bar */

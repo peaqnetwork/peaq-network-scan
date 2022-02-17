@@ -12,13 +12,13 @@
     "@polkadot/ui-settings": "^0.89.1",
     "@polkadot/util": "^8.3.1",
     "@polkadot/util-crypto": "^8.3.1",
-    "node-polyfill-webpack-plugin": "^1.1.4",
-    "stream-browserify": "^3.0.0",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.10.7",
+    "echarts": "^5.3.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
     "prop-types": "^15.8.1",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
@@ -26,6 +26,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.1.1",
     "react-scripts": "5.0.0",
+    "stream-browserify": "^3.0.0",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

@@ -120,7 +120,7 @@ export default function BlocksLatest() {
 
           <h3 className="ml-3">Latest blocks</h3>
         </div>
-        <Link to="/blocks" className="button small">
+        <Link to="/block" className="button small">
           All
         </Link>
       </div>
