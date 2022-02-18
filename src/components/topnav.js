@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { onClickOutside } from "../utils";
 
 export default function TopNav() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [listening, setListening] = useState(false);
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const dropdownRef = useRef(null);
+
+  useEffect(
+    onClickOutside(listening, setListening, dropdownRef, setIsDropdownOpen)
+  );
 
   return (
     <nav className={`topnav page ${isNavOpen ? "responsive" : ""}`}>
-      {/* <div className="nav-brand"> */}
       <Link to="/">
         <svg
           width="155"
@@ -42,9 +52,8 @@ export default function TopNav() {
           />
         </svg>
       </Link>
-      {/* </div> */}
-      <div className="nav-links">
-        <a href="/" className="">
+      <div className="nav-links" ref={dropdownRef}>
+        <button className="nav-dropbtn" onClick={toggleDropdown}>
           Blockchain{" "}
           <svg
             width="12"
@@ -52,6 +61,7 @@ export default function TopNav() {
             viewBox="0 0 12 8"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="ml-3"
           >
             <path
               d="M1.41 0.579956L6 5.16996L10.59 0.579956L12 1.99996L6 7.99996L0 1.99996L1.41 0.579956Z"
@@ -59,7 +69,17 @@ export default function TopNav() {
               fillOpacity="0.5"
             />
           </svg>
-        </a>
+        </button>
+        {isDropdownOpen && (
+          <div className="dropdown-content">
+            <Link to="/block" onClick={toggleDropdown}>
+              Blocks
+            </Link>
+            <Link to="/extrinsic" onClick={toggleDropdown}>
+              Extrinsics
+            </Link>
+          </div>
+        )}
         {/* <a href="/" className="">
           Staking
         </a> */}
@@ -79,8 +99,10 @@ export default function TopNav() {
             />
           </svg>
         </a> */}
-        <a href="#contact">Tools</a>
-        <a href="/" className="">
+        <a href="#contact" className="main-nav">
+          Tools
+        </a>
+        <a href="/" className="main-nav">
           Accounts
         </a>
         <span
