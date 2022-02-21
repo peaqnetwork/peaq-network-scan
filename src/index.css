@@ -334,6 +334,10 @@ table tbody td {
 tr:nth-child(even) {
   background-color: #212427;
 }
+th.no-wrap,
+td.no-wrap {
+  white-space: nowrap;
+}
 
 /* Utilities */
 /* content */

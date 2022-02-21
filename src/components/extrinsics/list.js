@@ -4,7 +4,7 @@ export default function ExtrinsicsList() {
       <table className="table">
         <thead>
           <tr>
-            <th>Extrinsic Id</th>
+            <th className="no-wrap">Extrinsic Id</th>
             <th>Block</th>
             <th>Hash</th>
             <th>Time</th>
@@ -15,7 +15,7 @@ export default function ExtrinsicsList() {
         </thead>
         <tbody>
           <tr>
-            <td className="text-accent-purple">8029232-0</td>
+            <td className="text-accent-purple no-wrap">8029232-0</td>
             <td className="text-accent-purple">8029232</td>
 
             <td className="text-accent-purple">0xdf462a8a185ab69...</td>
