@@ -35,7 +35,7 @@ export default function Footer() {
         />
       </svg>
       <div className="socials">
-        <a href="https://t.me/peaqnetwork">
+        <a href="https://t.me/peaqnetwork" target="_blank" rel="noreferrer">
           <svg
             width="24"
             height="24"
@@ -58,7 +58,11 @@ export default function Footer() {
             </defs>
           </svg>
         </a>
-        <a href="https://medium.com/peaqnetwork">
+        <a
+          href="https://medium.com/peaqnetwork"
+          target="_blank"
+          rel="noreferrer"
+        >
           <svg
             width="24"
             height="24"
@@ -84,7 +88,11 @@ export default function Footer() {
             </defs>
           </svg>
         </a>
-        <a href="https://twitter.com/peaqnetwork">
+        <a
+          href="https://twitter.com/peaqnetwork"
+          target="_blank"
+          rel="noreferrer"
+        >
           <svg
             width="24"
             height="24"
