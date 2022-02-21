@@ -1,10 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { setLatestBlocks } from "../store/slices/latest-blocks-slice";
-import { setCurrentBlockNumber } from "../store/slices/current-block-number-slice";
-import { Link } from "react-router-dom";
 import { useSubstrateState } from "../libs/substrate";
 import config from "../config";
 import ExtrinsicsHistory from "../components/extrinsics/history";
@@ -14,7 +8,7 @@ import ExtrinsicsList from "../components/extrinsics/list";
 export default function Extrinsics() {
   const { api } = useSubstrateState();
 
-  const [extrinsics, setExtrinsics] = useState([]);
+  const [extrinsicsList, setExtrinsicsList] = useState([]);
 
   useEffect(() => {
     const getExtrinsics = async () => {
@@ -28,25 +22,31 @@ export default function Extrinsics() {
         while (count < limit) {
           const blockHash = await api.rpc.chain.getBlockHash(blockNumber);
           const signedBlock = await api.rpc.chain.getBlock(blockHash);
-
-          extrinsicsList.push(signedBlock.toHuman().block.extrinsics);
+          const block = signedBlock.toHuman().block;
+          extrinsicsList.push({
+            blockNumber,
+            extrinsics: block.extrinsics,
+            epoch: Number(
+              block.extrinsics[0].method.args.now.replace(/,/g, "")
+            ),
+          });
           count++;
           blockNumber = blockNumber - 1;
         }
-        setExtrinsics(extrinsicsList);
+        setExtrinsicsList(extrinsicsList);
       } catch (err) {
         console.error(err);
       }
     };
 
     getExtrinsics();
-  }, []);
+  }, [api.rpc.chain]);
 
   return (
     <div className="page">
-      <ExtrinsicsHistory extrinsics={extrinsics} />
+      <ExtrinsicsHistory extrinsicsList={extrinsicsList} />
       <ExtrinsicsFilter />
-      <ExtrinsicsList />
+      <ExtrinsicsList extrinsicsList={extrinsicsList} />
     </div>
   );
 }

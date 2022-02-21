@@ -2,6 +2,9 @@
  * Some util functions used within the app
  */
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 const copyText = (text) => {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text);
@@ -29,4 +32,6 @@ const onClickOutside = (listening, setListening, menuRef, setIsOpen) => {
   };
 };
 
-export { copyText, onClickOutside };
+const formatTime = dayjs.extend(relativeTime);
+
+export { copyText, onClickOutside, formatTime };
