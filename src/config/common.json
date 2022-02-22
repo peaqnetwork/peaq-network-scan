@@ -1,4 +1,5 @@
 {
   "APP_NAME": "peaqScan",
-  "CUSTOM_RPC_METHODS": {}
+  "CUSTOM_RPC_METHODS": {},
+  "ITEMS_PER_PAGE": 10
 }
