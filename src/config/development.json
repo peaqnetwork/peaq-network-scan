@@ -1,5 +1,5 @@
 {
-  "PROVIDER_SOCKET": "wss://fn1.test.peaq.network/",
+  "PROVIDER_SOCKET": "wss://wss.test.peaq.network/",
   "DEVELOPMENT_KEYRING": true,
   "ITEMS_PER_PAGE": 10
 }

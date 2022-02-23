@@ -381,6 +381,10 @@ td.no-wrap {
   overflow-x: scroll;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 /* Message bar */
 .message-bar {
   background-color: #212427;
