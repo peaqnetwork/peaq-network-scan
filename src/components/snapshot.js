@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setBestNumberFinalized } from "../store/slices/best-number-finalized";
 import { useSubstrateState } from "../libs/substrate";
 
 export default function Snapshot() {
   const { api } = useSubstrateState();
-  const dispatch = useDispatch();
-  const bestNumberFinalized = useSelector(
-    (state) => state.bestNumberFinalized.value
-  );
+  const [bestNumberFinalized, setBestNumberFinalized] = useState(0);
 
   const [blockNumberTimer, setBlockNumberTimer] = useState(0);
   const [totalIssuance, setTotalIssuance] = useState(0);
@@ -20,8 +15,7 @@ export default function Snapshot() {
     const getSnapshot = async () => {
       const bestNumber = api.derive.chain.bestNumberFinalized;
       bestNumber((number) => {
-        // setBlockNumber(number.toNumber());
-        dispatch(setBestNumberFinalized(number.toNumber()));
+        setBestNumberFinalized(number.toNumber());
         setBlockNumberTimer(0);
       })
         .then((unsub) => {
