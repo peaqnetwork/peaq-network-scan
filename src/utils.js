@@ -33,6 +33,10 @@ const onClickOutside = (listening, setListening, menuRef, setIsOpen) => {
   };
 };
 
+const shortenHex = (hex) => {
+  return `${hex.slice(0, 10)}...`;
+};
+
 const formatTime = dayjs.extend(relativeTime);
 
-export { copyText, onClickOutside, formatTime };
+export { copyText, onClickOutside, formatTime, shortenHex };
