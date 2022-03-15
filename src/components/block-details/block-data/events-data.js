@@ -1,4 +1,4 @@
-import { copyText } from "../../../utils";
+import { copyText, shortenHex } from "../../../utils";
 
 export default function EventsData({ blockNumber, events }) {
   return (
@@ -20,7 +20,7 @@ export default function EventsData({ blockNumber, events }) {
               </td>
 
               <td className="text-accent-purple">
-                {`${event.hash.toHex().slice(0, 10)}...` || "-"}
+                {shortenHex(event.hash.toHex()) ?? "-"}
               </td>
 
               <td className="text-accent-purple">

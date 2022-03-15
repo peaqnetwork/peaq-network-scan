@@ -1,10 +1,8 @@
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { copyText } from "../../../utils";
+import { copyText, formatTime, shortenHex } from "../../../utils";
 
-dayjs.extend(relativeTime);
+export default function ExtrinsicsData({ signedBlock }) {
+  const block = signedBlock?.toHuman();
 
-export default function ExtrinsicsData({ block }) {
   return (
     <div className="block-data-tab-details">
       <table className="table">
@@ -18,18 +16,27 @@ export default function ExtrinsicsData({ block }) {
             <th></th>
           </tr>
         </thead>
-        {block && (
+        {signedBlock && (
           <tbody>
-            {block.block.extrinsics.map((extrinsic, i) => (
+            {signedBlock.block.extrinsics.map((extrinsic, i) => (
               <tr key={i}>
                 <td className="text-accent-purple">
                   {String(block.block.header.number).replace(",", "")}-{i}
                 </td>
 
-                <td className="text-accent-purple">{extrinsic.hash || "-"}</td>
+                <td className="text-accent-purple">
+                  {shortenHex(extrinsic.hash.toHex()) ?? "-"}
+                </td>
 
                 <td className="text-dark-white">
-                  {dayjs(block.time).fromNow()}
+                  {formatTime(
+                    Number(
+                      block.block.extrinsics[0].method.args.now.replace(
+                        /,/g,
+                        ""
+                      )
+                    )
+                  ).fromNow()}
                 </td>
 
                 <td className="">
