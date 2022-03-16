@@ -27,13 +27,7 @@ export default function BlockData({ blockNumber }) {
 
         // Get events
         const allRecords = await api.query.system.events.at(blockHash);
-        signedBlock.block.extrinsics.forEach((extrinsic, index) => {
-          const allEvents = allRecords.filter(
-            ({ phase }) =>
-              phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(index)
-          );
-          setEvents(allEvents);
-        });
+        setEvents(allRecords);
       } catch (err) {
         console.error(err);
       }

@@ -1,103 +1,16 @@
-import React, { useEffect } from "react";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setLatestBlocks,
-  setExistingBlock,
-} from "../store/slices/latest-blocks-slice";
-import { setCurrentBlockNumber } from "../store/slices/current-block-number-slice";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSubstrateState } from "../libs/substrate";
+import useGetBlocks from "../libs/chain/use-getblocks";
+import { formatTime } from "../utils";
 
 export default function BlocksLatest() {
-  const currentBlockNumber = useSelector(
-    (state) => state.currentBlockNumber.value
-  );
   const latestBlocks = useSelector((state) => state.latestBlocks.value);
-  const dispatch = useDispatch();
-
-  dayjs.extend(relativeTime);
 
   const { api } = useSubstrateState();
 
-  useEffect(() => {
-    let unsubscribeAll = null;
-
-    const getBlocks = async () => {
-      unsubscribeAll = await api.rpc.chain.subscribeNewHeads((header) => {
-        const blockNumber = header.number.toNumber();
-        const hash = header.hash.toHex();
-
-        // Get number of extrinsics
-        api.rpc.chain
-          .getBlock(hash)
-          .then((signedBlock) => {
-            const extrinsicsCount = signedBlock.block.extrinsics.length;
-
-            // Get number of events
-            api.query.system.events
-              .at(hash)
-              .then((allRecords) => {
-                signedBlock.block.extrinsics.forEach((method, index) => {
-                  // filter the specific events based on the phase and then the
-                  // index of our extrinsic in the block
-                  const events = allRecords.filter(
-                    ({ phase }) =>
-                      phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(index)
-                  );
-                  const eventsCount = events.length;
-
-                  // if blocknumber is less than current block number:
-                  // // replace that block with current data.
-                  // // else add new block
-
-                  if (blockNumber > currentBlockNumber) {
-                    dispatch(
-                      setLatestBlocks({
-                        blockNumber,
-                        extrinsicsCount,
-                        eventsCount,
-                        time: new Date().toString(),
-                        hash,
-                      })
-                    );
-                    dispatch(setCurrentBlockNumber(blockNumber));
-                  } else {
-                    dispatch(
-                      setExistingBlock({
-                        blockNumber,
-                        extrinsicsCount,
-                        eventsCount,
-                        time: new Date().toString(),
-                        hash,
-                      })
-                    );
-                    console.log(
-                      "previous/repeated block",
-                      blockNumber,
-                      "extrinsics",
-                      extrinsicsCount,
-                      "events",
-                      eventsCount,
-                      "extr",
-                      signedBlock.block.extrinsics,
-                      "evnt",
-                      events
-                    );
-                  }
-                });
-              })
-              .catch(console.error);
-          })
-          .catch(console.error);
-      });
-    };
-    getBlocks();
-
-    return () => unsubscribeAll && unsubscribeAll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useGetBlocks(api);
 
   return (
     <div className="latest-blocks">
@@ -128,7 +41,7 @@ export default function BlocksLatest() {
         <table className="table">
           <tbody>
             {latestBlocks.map((block) => (
-              <tr key={block.blockNumber}>
+              <tr key={`${block.blockNumber}-${Math.random()}`}>
                 <td className="text-large">
                   Block#{" "}
                   <Link
@@ -146,7 +59,9 @@ export default function BlocksLatest() {
                 </td>
                 <td className="text-dark-white text-small">
                   <div className="d-flex align-items-center">
-                    <span className="mr-3">{dayjs(block.time).fromNow()}</span>
+                    <span className="mr-3">
+                      {formatTime(block.time).fromNow()}
+                    </span>
                     <svg
                       width="24"
                       height="24"
@@ -163,126 +78,6 @@ export default function BlocksLatest() {
                 </td>
               </tr>
             ))}
-            {/* <tr>
-              <td className="text-large">
-                Block# <span className="text-accent-purple">787,89,21</span>
-              </td>
-              <td className="text-accent-purple text-small">3 Extrinsic</td>
-              <td className="text-accent-purple text-small">16 events</td>
-              <td className="text-dark-white text-small">
-                <div className="d-flex align-items-center">
-                  <span className="mr-3">4 secs ago </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 20C16.4 20 20 16.4 20 12C20 7.6 16.4 4 12 4C7.6 4 4 7.6 4 12C4 16.4 7.6 20 12 20ZM12 2C17.5 2 22 6.5 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2ZM17 13.9L16.3 15.2L11 12.3V7H12.5V11.4L17 13.9Z"
-                      fill="#979798"
-                    />
-                  </svg>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                Block# <span className="text-accent-purple">787,89,21</span>
-              </td>
-              <td className="text-accent-purple text-small">3 Extrinsic</td>
-              <td className="text-accent-purple text-small">16 events</td>
-              <td className="text-dark-white text-small">
-                <div className="d-flex align-items-center">
-                  <span className="mr-3">4 secs ago </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 20C16.4 20 20 16.4 20 12C20 7.6 16.4 4 12 4C7.6 4 4 7.6 4 12C4 16.4 7.6 20 12 20ZM12 2C17.5 2 22 6.5 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2ZM17 13.9L16.3 15.2L11 12.3V7H12.5V11.4L17 13.9Z"
-                      fill="#979798"
-                    />
-                  </svg>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                Block# <span className="text-accent-purple">787,89,21</span>
-              </td>
-              <td className="text-accent-purple text-small">3 Extrinsic</td>
-              <td className="text-accent-purple text-small">16 events</td>
-              <td className="text-dark-white text-small">
-                <div className="d-flex align-items-center">
-                  <span className="mr-3">4 secs ago </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 20C16.4 20 20 16.4 20 12C20 7.6 16.4 4 12 4C7.6 4 4 7.6 4 12C4 16.4 7.6 20 12 20ZM12 2C17.5 2 22 6.5 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2ZM17 13.9L16.3 15.2L11 12.3V7H12.5V11.4L17 13.9Z"
-                      fill="#979798"
-                    />
-                  </svg>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                Block# <span className="text-accent-purple">787,89,21</span>
-              </td>
-              <td className="text-accent-purple text-small">3 Extrinsic</td>
-              <td className="text-accent-purple text-small">16 events</td>
-              <td className="text-dark-white text-small">
-                <div className="d-flex align-items-center">
-                  <span className="mr-3">4 secs ago </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 20C16.4 20 20 16.4 20 12C20 7.6 16.4 4 12 4C7.6 4 4 7.6 4 12C4 16.4 7.6 20 12 20ZM12 2C17.5 2 22 6.5 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2ZM17 13.9L16.3 15.2L11 12.3V7H12.5V11.4L17 13.9Z"
-                      fill="#979798"
-                    />
-                  </svg>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-large">
-                Block# <span className="text-accent-purple">787,89,21</span>
-              </td>
-              <td className="text-accent-purple text-small">3 Extrinsic</td>
-              <td className="text-accent-purple text-small">16 events</td>
-              <td className="text-dark-white text-small">
-                <div className="d-flex align-items-center">
-                  <span className="mr-3">4 secs ago </span>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 20C16.4 20 20 16.4 20 12C20 7.6 16.4 4 12 4C7.6 4 4 7.6 4 12C4 16.4 7.6 20 12 20ZM12 2C17.5 2 22 6.5 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2ZM17 13.9L16.3 15.2L11 12.3V7H12.5V11.4L17 13.9Z"
-                      fill="#979798"
-                    />
-                  </svg>
-                </div>
-              </td>
-            </tr> */}
           </tbody>
         </table>
       </div>
