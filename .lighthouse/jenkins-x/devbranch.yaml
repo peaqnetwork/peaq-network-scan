@@ -19,9 +19,9 @@ spec:
             resources:
               requests:
                 cpu: 30m
-                memory: 1024Mi
+                memory: 512Mi
               limits:
-                cpu: 200m
+                cpu: 100m
                 memory: 2048Mi
             volumeMounts:
               - mountPath: /tekton/home/npm
