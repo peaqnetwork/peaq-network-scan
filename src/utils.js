@@ -39,4 +39,9 @@ const shortenHex = (hex) => {
 
 const formatTime = dayjs.extend(relativeTime);
 
-export { copyText, onClickOutside, formatTime, shortenHex };
+const getBlockTime = (blockObj) => {
+  const timeString = blockObj.extrinsics[0].method.args.now.replace(/,/g, "");
+  return Number(timeString);
+};
+
+export { copyText, onClickOutside, formatTime, shortenHex, getBlockTime };
