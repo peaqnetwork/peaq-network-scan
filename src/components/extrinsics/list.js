@@ -12,7 +12,6 @@ export default function ExtrinsicsList({
   if (extrinsicsList.length < 1) {
     return <InfoPlaceholder text="Sorry, nothing to show here" />;
   }
-  console.log(extrinsicsList);
   return (
     <div className="extrinsics-list bordered-content-box scroll-x">
       <table className="table">
