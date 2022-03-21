@@ -8,6 +8,7 @@ import TopNav from "./components/topnav";
 import { SubstrateContextProvider, useSubstrateState } from "./libs/substrate";
 import BlockDetails from "./routes/block-details";
 import Blocks from "./routes/blocks";
+import ExtrinsicDetails from "./routes/extrinsic-details";
 import Extrinsics from "./routes/extrinsics";
 import Home from "./routes/home";
 import store from "./store/store";
@@ -53,6 +54,10 @@ function Main() {
           <Route path="/block" element={<Blocks />}></Route>
           <Route path="/block/:blockNumber" element={<BlockDetails />}></Route>
           <Route path="/extrinsic" element={<Extrinsics />}></Route>
+          <Route
+            path="/extrinsic/:extrinsicId"
+            element={<ExtrinsicDetails />}
+          ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
