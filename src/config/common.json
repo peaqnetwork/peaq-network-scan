@@ -1,5 +1,6 @@
 {
   "APP_NAME": "peaqScan",
   "CUSTOM_RPC_METHODS": {},
-  "ITEMS_PER_PAGE": 10
+  "ITEMS_PER_PAGE": 10,
+  "SUBSQUID_ARCHIVE_GRAPH_NODE": "https://peaq.indexer.gc.subsquid.io/v4/graphql"
 }

@@ -6,39 +6,39 @@ metadata:
 spec:
   pipelineSpec:
     tasks:
-    - name: from-build-pack
-      resources: {}
-      taskSpec:
-        metadata: {}
-        stepTemplate:
-          image: uses:jenkins-x/jx3-pipeline-catalog/tasks/javascript/pullrequest.yaml@versionStream
-          name: ""
-          resources:
-            requests:
-              cpu: 50m
-              memory: 2048Mi
-            limits:
-              cpu: 200m
-              memory: 2048Mi
-          workingDir: /workspace/source
-        steps:
-        - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@versionStream
-          name: ""
-          resources: {}
-        - name: jx-variables
-          resources: {}
-        - image: node:lts-alpine
-          name: build-npm-install
-          resources: {}
-        - image: node:lts-alpine
-          name: build-npm-test
-          resources: {}
-        - name: check-registry
-          resources: {}
-        - name: build-container-build
-          resources: {}
-        - name: promote-jx-preview
-          resources: {}
+      - name: from-build-pack
+        resources: {}
+        taskSpec:
+          metadata: {}
+          stepTemplate:
+            image: uses:jenkins-x/jx3-pipeline-catalog/tasks/javascript/pullrequest.yaml@versionStream
+            name: ""
+            resources:
+              requests:
+                cpu: 30m
+                memory: 512Mi
+              limits:
+                cpu: 200m
+                memory: 2048Mi
+            workingDir: /workspace/source
+          steps:
+            - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone-pr.yaml@versionStream
+              name: ""
+              resources: {}
+            - name: jx-variables
+              resources: {}
+            - image: node:lts-alpine
+              name: build-npm-install
+              resources: {}
+            - image: node:lts-alpine
+              name: build-npm-test
+              resources: {}
+            - name: check-registry
+              resources: {}
+            - name: build-container-build
+              resources: {}
+            - name: promote-jx-preview
+              resources: {}
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 12h0m0s
