@@ -33,6 +33,15 @@ const onClickOutside = (listening, setListening, menuRef, setIsOpen) => {
   };
 };
 
+const shortenHex = (hex) => {
+  return `${hex.slice(0, 10)}...`;
+};
+
 const formatTime = dayjs.extend(relativeTime);
 
-export { copyText, onClickOutside, formatTime };
+const getBlockTime = (blockObj) => {
+  const timeString = blockObj.extrinsics[0].method.args.now.replace(/,/g, "");
+  return Number(timeString);
+};
+
+export { copyText, onClickOutside, formatTime, shortenHex, getBlockTime };

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useSubstrateState } from "../../../libs/substrate";
 import EventsData from "./events-data";
 import ExtrinsicsData from "./extrinsics-data";
@@ -8,11 +7,10 @@ import LogData from "./log-data";
 export default function BlockData({ blockNumber }) {
   const { api } = useSubstrateState();
 
-  const latestBlocks = useSelector((state) => state.latestBlocks.value);
-
   const [block, setBlock] = useState(null);
   const [activeTab, setActiveTab] = useState("extrinsics"); // extrinsics, events, log
   const [events, setEvents] = useState([]);
+  const [signedBlock, setSignedBlock] = useState(null);
 
   useEffect(() => {
     const getBlock = async () => {
@@ -21,27 +19,15 @@ export default function BlockData({ blockNumber }) {
         const signedBlock = await api.rpc.chain.getBlock(blockHash);
         const blockObj = signedBlock.toHuman();
 
-        // Grab reference block details from store to get timestamp
-        const recordedBlock = latestBlocks.find(
-          (block) => String(block.blockNumber) === blockNumber
+        blockObj.time = Number(
+          blockObj.block.extrinsics[0].method.args.now.replace(/,/g, "")
         );
-        blockObj.time = recordedBlock?.time;
         setBlock(blockObj);
+        setSignedBlock(signedBlock);
 
         // Get events
         const allRecords = await api.query.system.events.at(blockHash);
-        blockObj.block.extrinsics.forEach(
-          ({ method: { method, section } }, index) => {
-            // filter the specific events based on the phase and then the
-            // index of our extrinsic in the block
-            const allEvents = allRecords.filter(
-              ({ phase }) =>
-                phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(index)
-            );
-            // .map(({ event }) => `${event.section}.${event.method}`);
-            setEvents(allEvents);
-          }
-        );
+        setEvents(allRecords);
       } catch (err) {
         console.error(err);
       }
@@ -83,8 +69,10 @@ export default function BlockData({ blockNumber }) {
           </span>
         </span>
       </div>
-      {activeTab === "extrinsics" && <ExtrinsicsData block={block} />}
-      {activeTab === "log" && <LogData block={block} />}
+      {activeTab === "extrinsics" && (
+        <ExtrinsicsData signedBlock={signedBlock} />
+      )}
+      {activeTab === "log" && <LogData signedBlock={signedBlock} />}
       {activeTab === "events" && (
         <EventsData blockNumber={blockNumber} events={events} />
       )}

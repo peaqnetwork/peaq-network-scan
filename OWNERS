@@ -1,6 +1,13 @@
 approvers:
-- niazhussain
-- Veleslavskiy
-- MarynaShevchuk
+  - Veleslavskiy
+  - MarynaShevchuk
+  - niazhussain
+  - dorloechter
+  - faisalthaheem
+  - kosswest
 reviewers:
-- faisalthaheem
+  - faisalthaheem
+  - irediaes
+  - johnotu
+  - NotSoFancyName
+  - sfffaaa

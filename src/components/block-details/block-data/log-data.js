@@ -1,7 +1,7 @@
 import { copyText } from "../../../utils";
 
-export default function LogData({ block }) {
-  const blockNumber = String(block.block.header.number).replace(",", "");
+export default function LogData({ signedBlock }) {
+  const blockNumber = signedBlock.block.header.number.toString();
   return (
     <div className="block-data-tab-details">
       <table className="table">
@@ -13,9 +13,9 @@ export default function LogData({ block }) {
             <th></th>
           </tr>
         </thead>
-        {block && (
+        {signedBlock && (
           <tbody>
-            {block.block.header.digest.logs.map((log, i) => (
+            {signedBlock.block.header.digest.logs.map((log, i) => (
               <tr key={i}>
                 <td className="text-accent-purple">
                   {blockNumber}-{i}
@@ -23,7 +23,9 @@ export default function LogData({ block }) {
 
                 <td className="text-accent-purple">{blockNumber}</td>
 
-                <td className="text-accent-purple">{Object.keys(log)[0]}</td>
+                <td className="text-accent-purple">
+                  {Object.keys(log.toHuman())[0]}
+                </td>
 
                 <td className="">
                   <span>
