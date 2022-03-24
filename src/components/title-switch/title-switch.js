@@ -1,25 +1,34 @@
 import { useNavigate } from "react-router-dom";
 
-export default function TitleSwitch({ titleName, titleNumber, switchFor }) {
+export default function TitleSwitch({
+  titleName,
+  titleNumber,
+  switchFor,
+  nextParam,
+  prevParam,
+  goToNextItem,
+  goToPrevItem,
+}) {
   const navigate = useNavigate();
-  let blockNumber, extrinsicIndex, nextParam, prevParam;
+  let blockNumber, extrinsicIndex;
+  // nextParam, prevParam;
   if (switchFor === "extrinsic") {
     const splitTitleNumber = titleNumber.split("-");
     blockNumber = Number(splitTitleNumber[0]);
     extrinsicIndex = Number(splitTitleNumber[1]);
-    nextParam = `/extrinsic/${blockNumber}-${Number(extrinsicIndex) + 1}`;
-    prevParam =
-      extrinsicIndex < 1
-        ? null
-        : `/extrinsic/${blockNumber}-${Number(extrinsicIndex) - 1}`;
+    // nextParam = `/extrinsic/${blockNumber}-${Number(extrinsicIndex) + 1}`;
+    // prevParam =
+    //   extrinsicIndex < 1
+    //     ? null
+    //     : `/extrinsic/${blockNumber}-${Number(extrinsicIndex) - 1}`;
   } else {
     blockNumber = titleNumber;
-    nextParam = `/block/${Number(blockNumber) + 1}`;
-    prevParam = blockNumber < 1 ? null : `/block/${Number(blockNumber) - 1}`;
+    // nextParam = `/block/${Number(blockNumber) + 1}`;
+    // prevParam = blockNumber < 1 ? null : `/block/${Number(blockNumber) - 1}`;
   }
 
-  const goToNextItem = () => navigate(nextParam);
-  const goToPrevItem = () => navigate(prevParam);
+  // const goToNextItem = () => navigate(nextParam);
+  // const goToPrevItem = () => navigate(prevParam);
   return (
     <div className="d-flex align-items-center">
       <svg

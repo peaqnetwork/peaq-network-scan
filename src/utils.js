@@ -50,6 +50,29 @@ const roundToMinutes = (date, period) => {
   return new Date(Math.round(new Date(date).getTime() / coeff) * coeff);
 };
 
+const getBlockNumber = (signedBlock) => {
+  const block = signedBlock.block.toHuman();
+  return block.header.number.replace(/,/g, "");
+};
+
+const getExtrinsicParameters = (obj) => {
+  let params = "";
+
+  loopObj(obj);
+
+  function loopObj(obj) {
+    Object.entries(obj).forEach(([key, val]) => {
+      params += `${key}: `;
+      if (val && typeof val === "object") {
+        loopObj(val);
+      } else {
+        params += `${val}; \n`;
+      }
+    });
+  }
+  return params;
+};
+
 export {
   copyText,
   onClickOutside,
@@ -57,4 +80,6 @@ export {
   shortenHex,
   getBlockTime,
   roundToMinutes,
+  getBlockNumber,
+  getExtrinsicParameters,
 };
