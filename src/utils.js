@@ -39,4 +39,22 @@ const shortenHex = (hex) => {
 
 const formatTime = dayjs.extend(relativeTime);
 
-export { copyText, onClickOutside, formatTime, shortenHex };
+const getBlockTime = (blockObj) => {
+  const timeString = blockObj.extrinsics[0].method.args.now.replace(/,/g, "");
+  return Number(timeString);
+};
+
+const roundToMinutes = (date, period) => {
+  const minutes = period === "1hr" ? 2 : period === "6hr" ? 8 : 12;
+  const coeff = 1000 * 60 * minutes;
+  return new Date(Math.round(new Date(date).getTime() / coeff) * coeff);
+};
+
+export {
+  copyText,
+  onClickOutside,
+  formatTime,
+  shortenHex,
+  getBlockTime,
+  roundToMinutes,
+};

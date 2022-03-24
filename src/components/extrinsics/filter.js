@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Dropdown from "../drop-down";
+import ExtrinsicFilterField from "./extrinsic-filter-field";
 
 export default function ExtrinsicsFilter({
   params,
@@ -42,15 +44,19 @@ export default function ExtrinsicsFilter({
             />
           </svg>
           {isModuleDropdownOpen && (
-            <div className="filter-dropdown-content">
-              <span onClick={() => changeFilter("module", "all")}>All</span>
-              <span onClick={() => changeFilter("module", "dynamicFee")}>
-                Dynamic Fee
-              </span>
-              <span onClick={() => changeFilter("module", "timestamp")}>
-                Timestamp
-              </span>
-            </div>
+            <Dropdown
+              options={[
+                { option: "All", onClick: () => changeFilter("module", "all") },
+                {
+                  option: "Dynamic Fee",
+                  onClick: () => changeFilter("module", "dynamicFee"),
+                },
+                {
+                  option: "Timestamp",
+                  onClick: () => changeFilter("module", "timestamp"),
+                },
+              ]}
+            />
           )}
         </div>
       </div>
@@ -76,54 +82,46 @@ export default function ExtrinsicsFilter({
             />
           </svg>
           {isTimeDimensionDropdownOpen && (
-            <div className="filter-dropdown-content">
-              <span onClick={() => changeFilter("timeDimension", "date")}>
-                Date
-              </span>
-              <span onClick={() => changeFilter("timeDimension", "block")}>
-                Block
-              </span>
-            </div>
+            <Dropdown
+              options={[
+                {
+                  option: "Date",
+                  onClick: () => changeFilter("timeDimension", "date"),
+                },
+                {
+                  option: "Block",
+                  onClick: () => changeFilter("timeDimension", "block"),
+                },
+              ]}
+            />
           )}
         </div>
         {params.timeDimension === "date" && (
           <>
-            <div className="extrinsics-filter-fields d-flex justify-content-space-between align-items-center">
-              <span className="text-dark-white mr-3">Start</span>
-              <input
-                type="date"
-                className="text-dark-white"
-                onChange={(e) => changeFilter("startDate", e.target.value)}
-              />
-            </div>
-            <div className="extrinsics-filter-fields d-flex justify-content-space-between align-items-center">
-              <span className="text-dark-white">End</span>
-              <input
-                type="date"
-                className="text-dark-white"
-                onChange={(e) => changeFilter("endDate", e.target.value)}
-              />
-            </div>
+            <ExtrinsicFilterField
+              changeFilter={(e) => changeFilter("startDate", e.target.value)}
+              label="Start"
+              type="date"
+            />
+            <ExtrinsicFilterField
+              changeFilter={(e) => changeFilter("endDate", e.target.value)}
+              label="End"
+              type="date"
+            />
           </>
         )}
         {params.timeDimension === "block" && (
           <>
-            <div className="extrinsics-filter-fields">
-              <input
-                placeholder="Start block"
-                type="text"
-                onChange={(e) => changeFilter("startBlock", e.target.value)}
-                className="text-dark-white"
-              />
-            </div>
-            <div className="extrinsics-filter-fields">
-              <input
-                placeholder="End block"
-                type="text"
-                onChange={(e) => changeFilter("endBlock", e.target.value)}
-                className="text-dark-white"
-              />
-            </div>
+            <ExtrinsicFilterField
+              changeFilter={(e) => changeFilter("startBlock", e.target.value)}
+              label="Start block"
+              type="text"
+            />
+            <ExtrinsicFilterField
+              changeFilter={(e) => changeFilter("endBlock", e.target.value)}
+              label="End block"
+              type="text"
+            />
           </>
         )}
         <div>
