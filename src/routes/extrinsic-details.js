@@ -25,10 +25,8 @@ export default function ExtrinsicDetails() {
       <TitleSwitch
         titleName="Extrinsic"
         titleNumber={extrinsicId}
-        switchFor="extrinsic"
         goToNextItem={goToNext}
         goToPrevItem={goToPrev}
-        nextParam={nextUrl}
         prevParam={prevUrl}
       />
       <ExtrinsicSnapshot extrinsicId={extrinsicId} />

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import config from "../../config";
 import { useSubstrateState } from "../../libs/substrate";
 import { copyText, getBlockTime, getExtrinsicParameters } from "../../utils";
 import InfoPlaceholder from "../info-placeholder";
