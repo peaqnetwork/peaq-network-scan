@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { formatTime, copyText } from "../../utils";
+import InfoPlaceholder from "../info-placeholder";
 
-export default function ExtrinsicsList({ extrinsicsList }) {
+export default function ExtrinsicsList({
+  extrinsicsList,
+  isLoadingExtrinsics,
+}) {
+  if (isLoadingExtrinsics) {
+    return <InfoPlaceholder text="Loading extrinsics list..." />;
+  }
   if (extrinsicsList.length < 1) {
-    return (
-      <div
-        className="d-flex align-items-center justify-content-center"
-        style={{ height: "100%" }}
-      >
-        <p className="text-white">Loading extrinsics list...</p>
-      </div>
-    );
+    return <InfoPlaceholder text="Sorry, nothing to show here" />;
   }
   return (
     <div className="extrinsics-list bordered-content-box scroll-x">
@@ -27,26 +27,32 @@ export default function ExtrinsicsList({ extrinsicsList }) {
           </tr>
         </thead>
         <tbody>
-          {extrinsicsList.map(({ blockNumber, epoch, extrinsics }) =>
-            extrinsics.map((extrinsic, i) => (
-              <tr key={`${blockNumber}-${i}`}>
+          {extrinsicsList.map(
+            ({
+              extrinsicId,
+              blockNumber,
+              hash,
+              time,
+              isSigned,
+              action,
+              extrinsicJSON,
+            }) => (
+              <tr key={extrinsicId}>
                 <td className="text-accent-purple no-wrap">
-                  {blockNumber}-{i}
+                  <Link to={`/extrinsic/${extrinsicId}`}>{extrinsicId}</Link>
                 </td>
                 <td className="text-accent-purple">
                   <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
                 </td>
 
-                <td className="text-accent-purple">
-                  {extrinsic.meta?.hash || "-"}
-                </td>
+                <td className="text-accent-purple">{hash}</td>
 
                 <td className="text-dark-white">
-                  {formatTime(new Date(epoch)).fromNow()}
+                  {formatTime(new Date(time)).fromNow()}
                 </td>
 
                 <td className="">
-                  {extrinsic.isSigned ? (
+                  {isSigned ? (
                     <svg
                       width="24"
                       height="24"
@@ -75,9 +81,7 @@ export default function ExtrinsicsList({ extrinsicsList }) {
                   )}
                 </td>
 
-                <td className="text-accent-purple">
-                  {extrinsic.method.section} ({extrinsic.method.method})
-                </td>
+                <td className="text-accent-purple">{action})</td>
 
                 <td className="no-wrap">
                   <span>
@@ -88,7 +92,7 @@ export default function ExtrinsicsList({ extrinsicsList }) {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       className="mr-3 pointer"
-                      onClick={() => copyText(JSON.stringify(extrinsic))}
+                      onClick={() => copyText(extrinsicJSON)}
                     >
                       <path
                         d="M17.9091 19.3636H8.90909V7.90909H17.9091V19.3636ZM17.9091 6.27273H8.90909C8.4751 6.27273 8.05888 6.44513 7.75201 6.75201C7.44513 7.05888 7.27273 7.4751 7.27273 7.90909V19.3636C7.27273 19.7976 7.44513 20.2138 7.75201 20.5207C8.05888 20.8276 8.4751 21 8.90909 21H17.9091C18.3431 21 18.7593 20.8276 19.0662 20.5207C19.3731 20.2138 19.5455 19.7976 19.5455 19.3636V7.90909C19.5455 7.4751 19.3731 7.05888 19.0662 6.75201C18.7593 6.44513 18.3431 6.27273 17.9091 6.27273ZM15.4545 3H5.63636C5.20237 3 4.78616 3.1724 4.47928 3.47928C4.1724 3.78616 4 4.20237 4 4.63636V16.0909H5.63636V4.63636H15.4545V3Z"
@@ -112,7 +116,7 @@ export default function ExtrinsicsList({ extrinsicsList }) {
                   </span>
                 </td>
               </tr>
-            ))
+            )
           )}
         </tbody>
       </table>

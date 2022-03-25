@@ -25,7 +25,8 @@ const onClickOutside = (listening, setListening, menuRef, setIsOpen) => {
     setListening(true);
     [`click`, `touchstart`].forEach((type) => {
       document.addEventListener(`click`, (evt) => {
-        if (menuRef.current.contains(evt.target)) return;
+        if (menuRef && menuRef.current && menuRef.current.contains(evt.target))
+          return;
         setIsOpen(false);
       });
     });
@@ -43,4 +44,42 @@ const getBlockTime = (blockObj) => {
   return Number(timeString);
 };
 
-export { copyText, onClickOutside, formatTime, shortenHex, getBlockTime };
+const roundToMinutes = (date, period) => {
+  const minutes = period === "1hr" ? 2 : period === "6hr" ? 8 : 12;
+  const coeff = 1000 * 60 * minutes;
+  return new Date(Math.round(new Date(date).getTime() / coeff) * coeff);
+};
+
+const getBlockNumber = (signedBlock) => {
+  const block = signedBlock.block.toHuman();
+  return block.header.number.replace(/,/g, "");
+};
+
+const getExtrinsicParameters = (obj) => {
+  let params = "";
+
+  loopObj(obj);
+
+  function loopObj(obj) {
+    Object.entries(obj).forEach(([key, val]) => {
+      params += `${key}: `;
+      if (val && typeof val === "object") {
+        loopObj(val);
+      } else {
+        params += `${val}; \n`;
+      }
+    });
+  }
+  return params;
+};
+
+export {
+  copyText,
+  onClickOutside,
+  formatTime,
+  shortenHex,
+  getBlockTime,
+  roundToMinutes,
+  getBlockNumber,
+  getExtrinsicParameters,
+};

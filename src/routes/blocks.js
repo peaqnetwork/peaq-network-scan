@@ -13,7 +13,7 @@ export default function Blocks() {
 
   return (
     <div className="page">
-      <div className="blocks-list">
+      <div className="blocks-list above-footer">
         <table className="table">
           <thead>
             <tr>
