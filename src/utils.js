@@ -45,7 +45,7 @@ const getBlockTime = (blockObj) => {
 };
 
 const roundToMinutes = (date, period) => {
-  const minutes = period === "1hr" ? 2 : period === "6hr" ? 8 : 12;
+  const minutes = period === "1hr" ? 60 : period === "6hr" ? 360 : 1440;
   const coeff = 1000 * 60 * minutes;
   return new Date(Math.round(new Date(date).getTime() / coeff) * coeff);
 };
