@@ -38,7 +38,7 @@ export default function BlockData({ blockNumber }) {
   }, [blockNumber]);
 
   return (
-    <div className="block-data">
+    <div className="block-data above-footer">
       <div className="block-data-tabs">
         <span
           className={`block-data-title block-data-tab ${

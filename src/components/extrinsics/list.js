@@ -1,29 +1,16 @@
 import { Link } from "react-router-dom";
 import { formatTime, copyText } from "../../utils";
+import InfoPlaceholder from "../info-placeholder";
 
 export default function ExtrinsicsList({
   extrinsicsList,
   isLoadingExtrinsics,
 }) {
   if (isLoadingExtrinsics) {
-    return (
-      <div
-        className="d-flex align-items-center justify-content-center bordered-content-box"
-        style={{ height: "400px" }}
-      >
-        <p className="text-white">Loading extrinsics list...</p>
-      </div>
-    );
+    return <InfoPlaceholder text="Loading extrinsics list..." />;
   }
   if (extrinsicsList.length < 1) {
-    return (
-      <div
-        className="d-flex align-items-center justify-content-center bordered-content-box"
-        style={{ height: "400px" }}
-      >
-        <p className="text-white">Sorry, nothing to show here</p>
-      </div>
-    );
+    return <InfoPlaceholder text="Sorry, nothing to show here" />;
   }
   return (
     <div className="extrinsics-list bordered-content-box scroll-x">
@@ -51,7 +38,9 @@ export default function ExtrinsicsList({
               extrinsicJSON,
             }) => (
               <tr key={extrinsicId}>
-                <td className="text-accent-purple no-wrap">{extrinsicId}</td>
+                <td className="text-accent-purple no-wrap">
+                  <Link to={`/extrinsic/${extrinsicId}`}>{extrinsicId}</Link>
+                </td>
                 <td className="text-accent-purple">
                   <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
                 </td>
