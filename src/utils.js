@@ -4,6 +4,17 @@
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+
+dayjs.extend(updateLocale);
+dayjs.extend(relativeTime);
+dayjs.updateLocale("en", {
+  relativeTime: {
+    ...dayjs.en.relativeTime,
+    s: "%d seconds",
+    m: "%d minutes",
+  },
+});
 
 const copyText = (text) => {
   if (navigator.clipboard) {
@@ -37,7 +48,7 @@ const shortenHex = (hex) => {
   return `${hex.slice(0, 10)}...`;
 };
 
-const formatTime = dayjs.extend(relativeTime);
+const formatTime = dayjs; //.extend(relativeTime);
 
 const getBlockTime = (blockObj) => {
   const timeString = blockObj.extrinsics[0].method.args.now.replace(/,/g, "");
