@@ -20,3 +20,4 @@ To build static files for production
 - `npm run build`
 
 The static files can be located in `/build` folder.
+
