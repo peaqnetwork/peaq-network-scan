@@ -4,6 +4,7 @@ import config from "../config";
 import ExtrinsicsHistory from "../components/extrinsics/history";
 import ExtrinsicsFilter from "../components/extrinsics/filter";
 import ExtrinsicsList from "../components/extrinsics/list";
+import { shortenHex } from "../utils";
 
 export default function Extrinsics() {
   const { api } = useSubstrateState();
@@ -69,7 +70,8 @@ export default function Extrinsics() {
             const ext = {
               extrinsicId: `${num}-${i}`,
               blockNumber: num,
-              hash: extrinsic.meta?.hash || "-",
+              hash:
+                shortenHex(signedBlock.block.extrinsics[i].hash.toHex()) || "-",
               time,
               isSigned: extrinsic.isSigned,
               action: `${extrinsic.method.section} (${extrinsic.method.method})`,

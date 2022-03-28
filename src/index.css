@@ -283,10 +283,11 @@ a {
 .extrinsics-filter-fields input[type="text"] {
   width: 220px;
   font-size: 15px;
-  background-color: #979797;
+  /* background-color: #979797; */
   border: none;
   color: #131416;
   padding: 0 10px;
+  border-radius: 3px;
 }
 .extrinsics-filter-fields input[type="date"] {
   background-color: #979797;
@@ -537,9 +538,6 @@ td.no-wrap {
   table tbody td {
     padding: 10px;
     font-size: 80%;
-  }
-  td svg {
-    /* width: 15px; */
   }
 
   .validators-container {

@@ -99,14 +99,19 @@ export default function ExtrinsicsFilter({
         {params.timeDimension === "date" && (
           <>
             <ExtrinsicFilterField
-              changeFilter={(e) => changeFilter("startDate", e.target.value)}
+              changeFilter={changeFilter}
               label="Start"
               type="date"
+              paramName="startDate"
+              param={params.startDate}
             />
             <ExtrinsicFilterField
-              changeFilter={(e) => changeFilter("endDate", e.target.value)}
+              changeFilter={changeFilter}
               label="End"
               type="date"
+              paramName="endDate"
+              param={params.endDate}
+              minDate={params.startDate}
             />
           </>
         )}
