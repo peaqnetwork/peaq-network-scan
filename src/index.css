@@ -270,10 +270,6 @@ a {
 }
 
 /* Extrinsics */
-.extrinsics-history {
-  height: 300px;
-  /* width: 100%; */
-}
 .extrinsics-filter-fields {
   border-bottom: 1px solid #575c60;
   padding-bottom: 10px;
