@@ -38,7 +38,9 @@ export default function ExtrinsicsList({
               extrinsicJSON,
             }) => (
               <tr key={extrinsicId}>
-                <td className="text-accent-purple no-wrap">{extrinsicId}</td>
+                <td className="text-accent-purple no-wrap">
+                  <Link to={`/extrinsic/${extrinsicId}`}>{extrinsicId}</Link>
+                </td>
                 <td className="text-accent-purple">
                   <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
                 </td>
@@ -79,7 +81,7 @@ export default function ExtrinsicsList({
                   )}
                 </td>
 
-                <td className="text-accent-purple">{action})</td>
+                <td className="text-accent-purple">{action}</td>
 
                 <td className="no-wrap">
                   <span>

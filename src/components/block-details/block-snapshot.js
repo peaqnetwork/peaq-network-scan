@@ -1,43 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSubstrateState } from "../../libs/substrate";
 import { copyText, formatTime } from "../../utils";
 import { Link } from "react-router-dom";
+import InfoPlaceholder from "../info-placeholder";
 
-export default function BlockSnapshot({ blockNumber }) {
-  const [block, setBlock] = useState(null);
-
-  const { api } = useSubstrateState();
-
-  useEffect(() => {
-    const getBlock = async () => {
-      try {
-        const blockHash = await api.rpc.chain.getBlockHash(blockNumber);
-        const signedBlock = await api.rpc.chain.getBlock(blockHash);
-        const blockObj = signedBlock.toHuman();
-        // Add block hash
-        blockObj.hash = blockHash.toHex();
-
-        const bestNumberFinalized =
-          await api.derive.chain.bestNumberFinalized();
-
-        // Determine if block if finalized by comparing against chain length
-        blockObj.isFinalized =
-          Number(blockNumber) < bestNumberFinalized.toNumber();
-
-        blockObj.time = Number(
-          blockObj.block.extrinsics[0].method.args.now.replace(/,/g, "")
-        );
-
-        setBlock(blockObj);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getBlock();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [blockNumber]);
-
+export default function BlockSnapshot({ blockNumber, block, blockExists }) {
   return block ? (
     <div className="block-snapshot">
       <table className="table">
@@ -146,12 +111,13 @@ export default function BlockSnapshot({ blockNumber }) {
         </tbody>
       </table>
     </div>
+  ) : !blockExists ? (
+    <div className="mt-40">
+      <InfoPlaceholder text="Sorry! That block does not exist" />
+    </div>
   ) : (
-    <div
-      className="block-snapshot d-flex align-items-center justify-content-center"
-      style={{ height: "400px" }}
-    >
-      Loading snapshot...
+    <div className="mt-40">
+      <InfoPlaceholder text="Loading snapshot..." />
     </div>
   );
 }

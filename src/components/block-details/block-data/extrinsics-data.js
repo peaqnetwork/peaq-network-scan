@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { copyText, formatTime, shortenHex } from "../../../utils";
 
 export default function ExtrinsicsData({ signedBlock }) {
@@ -21,7 +22,14 @@ export default function ExtrinsicsData({ signedBlock }) {
             {signedBlock.block.extrinsics.map((extrinsic, i) => (
               <tr key={i}>
                 <td className="text-accent-purple">
-                  {String(block.block.header.number).replace(",", "")}-{i}
+                  <Link
+                    to={`/extrinsic/${String(block.block.header.number).replace(
+                      ",",
+                      ""
+                    )}-${i}`}
+                  >
+                    {String(block.block.header.number).replace(",", "")}-{i}
+                  </Link>
                 </td>
 
                 <td className="text-accent-purple">

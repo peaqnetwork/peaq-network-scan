@@ -14,7 +14,7 @@ export default function ExtrinsicsHistory() {
     const upperDate = new Date();
     const upperDateString = upperDate.toISOString();
     const upperDateTime = upperDate.getTime();
-    const multiplier = period === "1hr" ? 1 : period === "6hr" ? 6 : 24;
+    const multiplier = period === "1hr" ? 24 : period === "6hr" ? 144 : 576;
     lowerDate = upperDateTime - 1000 * 60 * 60 * multiplier;
     lowerDateString = new Date(lowerDate).toISOString();
 
@@ -50,6 +50,9 @@ export default function ExtrinsicsHistory() {
             total: groupedTimestamps[date].length,
           });
         }
+        dataset = dataset.sort(
+          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+        );
         if (isHistoryMounted) {
           setChartData(dataset);
         }

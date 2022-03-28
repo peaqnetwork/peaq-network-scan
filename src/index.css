@@ -58,6 +58,11 @@ a {
 .button.active {
   background-color: #706cff;
 }
+.button-outline {
+  border: 1px solid #979798;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
 
 /* TopNav */
 .topnav {
@@ -153,10 +158,6 @@ a {
 /* Page */
 .page {
   padding: 40px 173px;
-
-  /* width: 100%; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
 }
 
 /* Snapshot section */
@@ -269,10 +270,6 @@ a {
 }
 
 /* Extrinsics */
-.extrinsics-history {
-  height: 300px;
-  /* width: 100%; */
-}
 .extrinsics-filter-fields {
   border-bottom: 1px solid #575c60;
   padding-bottom: 10px;
@@ -282,10 +279,11 @@ a {
 .extrinsics-filter-fields input[type="text"] {
   width: 220px;
   font-size: 15px;
-  background-color: #979797;
+  /* background-color: #979797; */
   border: none;
   color: #131416;
   padding: 0 10px;
+  border-radius: 3px;
 }
 .extrinsics-filter-fields input[type="date"] {
   background-color: #979797;
@@ -402,6 +400,9 @@ td.no-wrap {
 .ml-3 {
   margin-left: 12px;
 }
+.ml-40 {
+  margin-left: 40px;
+}
 .mr-3 {
   margin-right: 12px;
 }
@@ -410,6 +411,9 @@ td.no-wrap {
 }
 .mb-40 {
   margin-bottom: 40px;
+}
+.above-footer {
+  margin-bottom: 7rem;
 }
 
 .scroll-x {
@@ -433,7 +437,7 @@ td.no-wrap {
 
 /* Footer */
 .footer {
-  /* position: fixed; */
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -469,9 +473,6 @@ td.no-wrap {
   }
   .extrinsics-filter {
     display: none;
-  }
-  .page {
-    padding: 10px 20px;
   }
   .topnav a,
   .nav-dropbtn {
@@ -533,9 +534,6 @@ td.no-wrap {
   table tbody td {
     padding: 10px;
     font-size: 80%;
-  }
-  td svg {
-    /* width: 15px; */
   }
 
   .validators-container {
