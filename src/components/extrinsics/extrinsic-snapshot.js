@@ -27,6 +27,8 @@ export default function ExtrinsicSnapshot({ extrinsicId }) {
             phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(extrinsicIndex)
         );
 
+        console.log(extrinsicEvent.toString());
+
         const bestNumberFinalized =
           await api.derive.chain.bestNumberFinalized();
         const blockObj = signedBlock.block.toHuman();

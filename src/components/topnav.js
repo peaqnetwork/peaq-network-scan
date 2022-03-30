@@ -78,27 +78,11 @@ export default function TopNav() {
             <Link to="/extrinsic" onClick={toggleDropdown}>
               Extrinsics
             </Link>
+            <Link to="/transfer" onClick={toggleDropdown}>
+              Transfers
+            </Link>
           </div>
         )}
-        {/* <a href="/" className="">
-          Staking
-        </a> */}
-        {/* <a href="#news">
-          Governance{" "}
-          <svg
-            width="12"
-            height="8"
-            viewBox="0 0 12 8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1.41 0.579956L6 5.16996L10.59 0.579956L12 1.99996L6 7.99996L0 1.99996L1.41 0.579956Z"
-              fill="white"
-              fillOpacity="0.5"
-            />
-          </svg>
-        </a> */}
         <a href="#contact" className="main-nav">
           Tools
         </a>

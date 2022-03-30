@@ -10,6 +10,7 @@ import BlockDetails from "./routes/block-details";
 import Blocks from "./routes/blocks";
 import ExtrinsicDetails from "./routes/extrinsic-details";
 import Extrinsics from "./routes/extrinsics";
+import Transfers from "./routes/transfers";
 import Home from "./routes/home";
 import store from "./store/store";
 
@@ -58,6 +59,7 @@ function Main() {
             path="/extrinsic/:extrinsicId"
             element={<ExtrinsicDetails />}
           ></Route>
+          <Route path="/transfer" element={<Transfers />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
