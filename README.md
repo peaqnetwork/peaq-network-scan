@@ -11,7 +11,7 @@ To run the project locally:
 - install dependencies `npm install`
 - start project `npm start`
 
-Project should be running on http://localhost:3000 or the next available subsequent port number
+Project should be running on http://localhost:3000 or the next available subsequent port number.
 
 ## Production build
 
