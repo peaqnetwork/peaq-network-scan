@@ -26,6 +26,7 @@ export default function Extrinsics() {
   };
 
   const filterExtrinsics = () => {
+    setIsLoadingExtrinsics(true);
     let filteredExtrinsics = [...extrinsicsList];
     const { module, startBlock, endBlock, startDate, endDate } = filterParams;
     if (module !== "all") {
@@ -42,10 +43,13 @@ export default function Extrinsics() {
     }
     if (startDate && endDate) {
       filteredExtrinsics = filteredExtrinsics.filter(
-        (e) => e.time >= startDate && e.time <= endDate
+        (e) =>
+          e.time >= new Date(startDate).getTime() &&
+          e.time <= new Date(endDate + " 23:59:59").getTime()
       );
     }
     setExtrinsics(filteredExtrinsics);
+    setIsLoadingExtrinsics(false);
   };
 
   useEffect(() => {
