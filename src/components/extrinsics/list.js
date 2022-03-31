@@ -81,7 +81,7 @@ export default function ExtrinsicsList({
                   )}
                 </td>
 
-                <td className="text-accent-purple">{action})</td>
+                <td className="text-accent-purple">{action}</td>
 
                 <td className="no-wrap">
                   <span>

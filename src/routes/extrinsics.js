@@ -4,6 +4,7 @@ import config from "../config";
 import ExtrinsicsHistory from "../components/extrinsics/history";
 import ExtrinsicsFilter from "../components/extrinsics/filter";
 import ExtrinsicsList from "../components/extrinsics/list";
+import { shortenHex } from "../utils";
 
 export default function Extrinsics() {
   const { api } = useSubstrateState();
@@ -25,6 +26,7 @@ export default function Extrinsics() {
   };
 
   const filterExtrinsics = () => {
+    setIsLoadingExtrinsics(true);
     let filteredExtrinsics = [...extrinsicsList];
     const { module, startBlock, endBlock, startDate, endDate } = filterParams;
     if (module !== "all") {
@@ -41,10 +43,13 @@ export default function Extrinsics() {
     }
     if (startDate && endDate) {
       filteredExtrinsics = filteredExtrinsics.filter(
-        (e) => e.time >= startDate && e.time <= endDate
+        (e) =>
+          e.time >= new Date(startDate).getTime() &&
+          e.time <= new Date(endDate + " 23:59:59").getTime()
       );
     }
     setExtrinsics(filteredExtrinsics);
+    setIsLoadingExtrinsics(false);
   };
 
   useEffect(() => {
@@ -69,7 +74,8 @@ export default function Extrinsics() {
             const ext = {
               extrinsicId: `${num}-${i}`,
               blockNumber: num,
-              hash: extrinsic.meta?.hash || "-",
+              hash:
+                shortenHex(signedBlock.block.extrinsics[i].hash.toHex()) || "-",
               time,
               isSigned: extrinsic.isSigned,
               action: `${extrinsic.method.section} (${extrinsic.method.method})`,
