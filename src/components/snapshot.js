@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSubstrateState } from "../libs/substrate";
+import { formatBalance } from "@polkadot/util";
 
 export default function Snapshot() {
   const { api } = useSubstrateState();
   const [bestNumberFinalized, setBestNumberFinalized] = useState(0);
 
   const [blockNumberTimer, setBlockNumberTimer] = useState(0);
-  const [totalIssuance, setTotalIssuance] = useState(0);
+  const [totalIssuance, setTotalIssuance] = useState("");
   const [validatorsCount, setValidatorsCount] = useState(0);
 
   useEffect(() => {
@@ -40,9 +41,17 @@ export default function Snapshot() {
   useEffect(() => {
     const getConstants = async () => {
       const issuance = await api.query.balances.totalIssuance();
-      setTotalIssuance(issuance.toString());
+      const chainInfo = await api.registry.getChainProperties();
+      const chainInfoObj = chainInfo.toHuman();
+      const formattedIssuance = formatBalance(issuance, {
+        decimals: Number(chainInfoObj.tokenDecimals[0]),
+      });
+      setTotalIssuance(
+        formattedIssuance.replace("Unit", chainInfoObj.tokenSymbol)
+      );
     };
     getConstants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -66,6 +75,7 @@ export default function Snapshot() {
 
     getConnectedPeers();
     return () => unsubscribeAll && unsubscribeAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -83,9 +93,7 @@ export default function Snapshot() {
       <div className="snapshot-row">
         <div className="snapshot-item">
           <p className="snapshot-label">Total Issuance</p>
-          <p className="snapshot-value">
-            {Number(totalIssuance) / 1000000000000000000000000} YPEAQ
-          </p>
+          <p className="snapshot-value">{totalIssuance}</p>
         </div>
         <div className="snapshot-item">
           <p className="snapshot-label">Validators</p>
