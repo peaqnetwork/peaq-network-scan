@@ -44,8 +44,8 @@ export default function Extrinsics() {
     if (startDate && endDate) {
       filteredExtrinsics = filteredExtrinsics.filter(
         (e) =>
-          e.time >= new Date(startDate).getTime() &&
-          e.time <= new Date(endDate + " 23:59:59").getTime()
+          e.time >= new Date(startDate).setHours(0, 0, 0, 0) &&
+          e.time <= new Date(endDate).setHours(23, 59, 59, 999)
       );
     }
     setExtrinsics(filteredExtrinsics);
