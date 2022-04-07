@@ -26,13 +26,7 @@ export default class Chart extends Component {
           tooltip: {},
           xAxis: {
             type: "category",
-            data: this.props.chartData.map(
-              (c) =>
-                `${new Date(c.timestamp)
-                  .toISOString()
-                  .slice(0, 19)
-                  .replace("T", " ")} (+UTC)`
-            ),
+            data: this.props.chartData.map((c) => c.timestamp),
             show: false,
           },
           yAxis: {
