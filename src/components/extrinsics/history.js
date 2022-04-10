@@ -51,7 +51,7 @@ export default function ExtrinsicsHistory() {
           });
         }
         dataset = dataset.sort(
-          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+          (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
         );
         if (isHistoryMounted) {
           setChartData(dataset);
