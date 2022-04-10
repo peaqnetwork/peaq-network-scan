@@ -19,6 +19,7 @@ echarts.use([
 
 export default class Chart extends Component {
   render() {
+    const { hasInvert, chartData, dataProp } = this.props;
     return (
       <ReactEChartsCore
         echarts={echarts}
@@ -26,7 +27,7 @@ export default class Chart extends Component {
           tooltip: {},
           xAxis: {
             type: "category",
-            data: this.props.chartData.map((c) => c.timestamp),
+            data: chartData.map((c) => c.timestamp),
             show: false,
           },
           yAxis: {
@@ -35,12 +36,23 @@ export default class Chart extends Component {
           },
           series: [
             {
-              data: this.props.chartData.map((c) => c.total),
+              data: chartData.map((c) => c[dataProp.regular]),
               type: "bar",
               barWidth: "75%",
-              itemStyle: { borderRadius: 5 },
+              itemStyle: { borderRadius: 5, color: "#A6A3FF" },
               tooltip: { valueFormatter: (value) => value + " times" },
+              stack: "tx",
             },
+            hasInvert
+              ? {
+                  data: chartData.map((c) => -c[dataProp.invert]),
+                  type: "bar",
+                  barWidth: "75%",
+                  itemStyle: { borderRadius: 5, color: "#282C2F" },
+                  tooltip: { valueFormatter: (value) => -value + " times" },
+                  stack: "tx",
+                }
+              : null,
           ],
           grid: {
             left: 0,
@@ -48,7 +60,6 @@ export default class Chart extends Component {
             top: 20,
             bottom: 130,
           },
-          color: "#A6A3FF",
         }}
         notMerge={true}
         lazyUpdate={true}

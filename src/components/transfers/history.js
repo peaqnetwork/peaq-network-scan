@@ -1,9 +1,8 @@
-import { bnToHex, formatBalance, hexToBn } from "@polkadot/util";
 import groupBy from "lodash.groupby";
 import { useEffect, useState } from "react";
-import { subSquidQuery } from "../../libs/subsquid";
+import { subSquidGraphServer } from "../../libs/subsquid";
 import { useSubstrateState } from "../../libs/substrate";
-import { roundToMinutes } from "../../utils";
+import { getHistoryDateRange, roundToMinutes } from "../../utils";
 import Chart from "../charts/bar-chart";
 
 export default function TransfersHistory({ period, setPeriod }) {
@@ -14,56 +13,51 @@ export default function TransfersHistory({ period, setPeriod }) {
   useEffect(() => {
     let isHistoryMounted = true;
     const getTransfers = async () => {
-      let chainInfo = await api.registry.getChainProperties();
+      // let chainInfo = await api.registry.getChainProperties();
+      // chainInfo = chainInfo.toHuman();
+      // const decimals = chainInfo.tokenDecimals[0];
+      // const unit = chainInfo.tokenSymbol[0];
 
-      chainInfo = chainInfo.toHuman();
-      const decimals = chainInfo.tokenDecimals[0];
-      const unit = chainInfo.tokenSymbol[0];
-
-      const today = new Date().toISOString();
+      const { lowerDateString, upperDateString } = getHistoryDateRange(period);
 
       const QUERY = `{
-        substrate_event(limit: 10, where: {section: {_eq: "balances"}, method: {_eq: "Transfer"}, created_at: {_lte: "${today}"}}, order_by: {created_at: desc}) {
-        data(path: ".param2")
-        created_at
-      }
-    }`;
-      const { data } = await subSquidQuery.post("", {
+        transfers(where: {createdAt_lte: "${upperDateString}", createdAt_gte: "${lowerDateString}"}) {
+          amount
+          createdAt
+        }
+      }`;
+      const { data } = await subSquidGraphServer.post("", {
         query: QUERY,
       });
+
+      // console.log("data", data);
 
       if (data.errors) {
         console.error(data.errors);
       } else {
-        let transfers = data.data.substrate_event;
+        let transfers = data.data.transfers;
 
         transfers = transfers.map((t) => ({
           ...t,
-          groupTimestamp: roundToMinutes(t.created_at, period),
-          value: t.data.value,
+          groupTimestamp: roundToMinutes(t.createdAt, period),
+          value: t.amount,
           // hex: hexToBigInt(t.data.value),
         }));
+
+        // console.log("transfers", transfers);
 
         const groupedTransfers = groupBy(transfers, (a) => a.groupTimestamp);
         let dataset = [];
 
-        // console.log(groupedTransfers);
-
         for (let date in groupedTransfers) {
           dataset.push({
-            timestamp: new Date(date).toISOString(),
-            total: groupedTransfers[date].length,
-            value: groupedTransfers[date].reduce(
-              (prev, cur) => prev.value.add(hexToBn(cur.value)),
-              hexToBn("0x00")
-            ),
+            timestamp: date, // new Date(date).toISOString(),
+            totalNumber: groupedTransfers[date].length,
+            // totalAmount: groupedTransfers[date].reduce(
+            //   (prev, cur) => (prev.value += cur.value)
+            // ),
           });
         }
-
-        console.log(dataset);
-        const dd = bnToHex(dataset[0].value);
-        console.log(dd);
-        console.log(formatBalance(dd));
         if (isHistoryMounted) {
           setChartData(dataset);
         }
@@ -72,7 +66,7 @@ export default function TransfersHistory({ period, setPeriod }) {
 
     getTransfers();
     return () => (isHistoryMounted = false);
-  }, []);
+  }, [api.registry, period]);
 
   return (
     <div className="bordered-content-box extrinsics-history mb-40">
@@ -80,24 +74,29 @@ export default function TransfersHistory({ period, setPeriod }) {
       <div>
         <span
           className={`button tiny pointer ${period === "1hr" ? "active" : ""}`}
-          // onClick={() => setPeriod("1hr")}
+          onClick={() => setPeriod("1hr")}
         >
           1H
         </span>
         <span
           className={`button tiny pointer ${period === "6hr" ? "active" : ""}`}
-          // onClick={() => setPeriod("6hr")}
+          onClick={() => setPeriod("6hr")}
         >
           6H
         </span>
         <span
           className={`button tiny pointer ${period === "1dy" ? "active" : ""}`}
-          // onClick={() => setPeriod("1dy")}
+          onClick={() => setPeriod("1dy")}
         >
           1D
         </span>
       </div>
-      <Chart chartData={chartData} />
+      <Chart
+        chartData={chartData}
+        hasInvert
+        invertProp="total"
+        dataProp={{ regular: "totalAmount", invert: "totalNumber" }}
+      />
     </div>
   );
 }

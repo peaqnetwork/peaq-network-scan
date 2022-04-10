@@ -68,7 +68,6 @@ export default function TransfersList() {
         console.error(data.errors);
       } else {
         const { edges, totalCount } = data.data.transfersConnection;
-        //
         const pageCount = Math.ceil(totalCount / limit);
         const transfers = edges.map((e) => ({
           ...e.node,
@@ -87,7 +86,7 @@ export default function TransfersList() {
 
     getTransfers();
     return () => (isListMounted = false);
-  }, [endCursor]);
+  }, [api.registry, endCursor, limit]);
 
   return (
     <>
