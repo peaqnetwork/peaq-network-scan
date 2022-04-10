@@ -1,4 +1,4 @@
 {
-  "PROVIDER_SOCKET": "wss://wss.test.peaq.network/",
+  "PROVIDER_SOCKET": "wss://wss.agung.peaq.network",
   "DEVELOPMENT_KEYRING": true
 }
