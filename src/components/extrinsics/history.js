@@ -46,7 +46,7 @@ export default function ExtrinsicsHistory() {
 
         for (let date in groupedTimestamps) {
           dataset.push({
-            timestamp: new Date(date).toISOString(),
+            timestamp: date, // new Date(date).toISOString(),
             total: groupedTimestamps[date].length,
           });
         }
