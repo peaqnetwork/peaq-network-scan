@@ -4,6 +4,7 @@ import { subSquidGraphServer } from "../../libs/subsquid";
 import { useSubstrateState } from "../../libs/substrate";
 import { getHistoryDateRange, roundToMinutes } from "../../utils";
 import Chart from "../charts/bar-chart";
+import InfoPlaceholder from "../info-placeholder";
 
 export default function TransfersHistory({ period, setPeriod }) {
   const { api } = useSubstrateState();
@@ -91,12 +92,19 @@ export default function TransfersHistory({ period, setPeriod }) {
           1D
         </span>
       </div>
-      <Chart
-        chartData={chartData}
-        hasInvert
-        invertProp="total"
-        dataProp={{ regular: "totalAmount", invert: "totalNumber" }}
-      />
+      {chartData.length > 0 ? (
+        <Chart
+          chartData={chartData}
+          hasInvert
+          invertProp="total"
+          dataProp={{ regular: "totalAmount", invert: "totalNumber" }}
+        />
+      ) : (
+        <InfoPlaceholder
+          text={`Sorry we couldn't find transfers in the last ${period}`}
+          isBare
+        />
+      )}
     </div>
   );
 }

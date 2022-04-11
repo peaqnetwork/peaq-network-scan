@@ -6,6 +6,7 @@ import { formatTime, shortenHex } from "../../utils";
 import { formatBalance } from "@polkadot/util";
 import Pagination from "../pagination/pagination";
 import InfoPlaceholder from "../info-placeholder";
+import { Link } from "react-router-dom";
 
 export default function TransfersList() {
   const limit = config.ITEMS_PER_PAGE;
@@ -122,9 +123,13 @@ export default function TransfersList() {
                 }) => (
                   <tr key={id}>
                     <td className="text-accent-purple">
-                      {blockNumber}-{extrinsicIndex}
+                      <Link to={`/extrinsic/${blockNumber}-${extrinsicIndex}`}>
+                        {blockNumber}-{extrinsicIndex}
+                      </Link>
                     </td>
-                    <td className="text-accent-purple">{blockNumber}</td>
+                    <td className="text-accent-purple">
+                      <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
+                    </td>
                     <td className="text-dark-white">
                       {formatTime(createdAt).fromNow()}
                     </td>

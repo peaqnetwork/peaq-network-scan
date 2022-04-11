@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSubstrateState } from "../libs/substrate";
+import { Link } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 
@@ -90,9 +91,9 @@ export default function BlocksTransfers() {
 
           <h3 className="ml-3">Recent Transfers</h3>
         </div>
-        <a href="/transfers" className="button small">
+        <Link to="/transfer" className="button small">
           All
-        </a>
+        </Link>
       </div>
       <div>
         <table className="table">
