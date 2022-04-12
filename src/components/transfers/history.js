@@ -59,6 +59,9 @@ export default function TransfersHistory({ period, setPeriod }) {
             // ),
           });
         }
+        dataset = dataset.sort(
+          (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+        );
         if (isHistoryMounted) {
           setChartData(dataset);
         }
