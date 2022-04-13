@@ -5,4 +5,8 @@ const subSquidQuery = axios.create({
   baseURL: config.SUBSQUID_ARCHIVE_GRAPH_NODE,
 });
 
-export { subSquidQuery };
+const subSquidGraphServer = axios.create({
+  baseURL: config.SUBSQUID_GRAPH_SERVER,
+});
+
+export { subSquidQuery, subSquidGraphServer };

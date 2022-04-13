@@ -84,6 +84,18 @@ const getExtrinsicParameters = (obj) => {
   return params;
 };
 
+const getHistoryDateRange = (period) => {
+  let lowerDate, lowerDateString;
+  const upperDate = new Date();
+  const upperDateString = upperDate.toISOString();
+  const upperDateTime = upperDate.getTime();
+  const multiplier = period === "1hr" ? 24 : period === "6hr" ? 144 : 576;
+  lowerDate = upperDateTime - 1000 * 60 * 60 * multiplier;
+  lowerDateString = new Date(lowerDate).toISOString();
+
+  return { lowerDateString, upperDateString };
+};
+
 export {
   copyText,
   onClickOutside,
@@ -93,4 +105,5 @@ export {
   roundToMinutes,
   getBlockNumber,
   getExtrinsicParameters,
+  getHistoryDateRange,
 };

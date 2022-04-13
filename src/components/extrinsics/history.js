@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { subSquidQuery } from "../../libs/subsquid";
-import { roundToMinutes } from "../../utils";
+import { getHistoryDateRange, roundToMinutes } from "../../utils";
 import groupBy from "lodash.groupby";
 import Chart from "../charts/bar-chart";
 
@@ -9,22 +9,10 @@ export default function ExtrinsicsHistory() {
   const [period, setPeriod] = useState("1hr");
   const [chartData, setChartData] = useState([]);
 
-  const getDateRange = (period) => {
-    let lowerDate, lowerDateString;
-    const upperDate = new Date();
-    const upperDateString = upperDate.toISOString();
-    const upperDateTime = upperDate.getTime();
-    const multiplier = period === "1hr" ? 24 : period === "6hr" ? 144 : 576;
-    lowerDate = upperDateTime - 1000 * 60 * 60 * multiplier;
-    lowerDateString = new Date(lowerDate).toISOString();
-
-    return { lowerDateString, upperDateString };
-  };
-
   useEffect(() => {
     let isHistoryMounted = true;
     const getExtrinsics = async (period) => {
-      const { lowerDateString, upperDateString } = getDateRange(period);
+      const { lowerDateString, upperDateString } = getHistoryDateRange(period);
 
       const QUERY = `{
           substrate_extrinsic(where: {created_at: {_gt: "${lowerDateString}", _lt: "${upperDateString}"}}) {
@@ -46,7 +34,7 @@ export default function ExtrinsicsHistory() {
 
         for (let date in groupedTimestamps) {
           dataset.push({
-            timestamp: new Date(date).toISOString(),
+            timestamp: date, // new Date(date).toISOString(),
             total: groupedTimestamps[date].length,
           });
         }
@@ -86,7 +74,7 @@ export default function ExtrinsicsHistory() {
           1D
         </span>
       </div>
-      <Chart chartData={chartData} />
+      <Chart chartData={chartData} dataProp={{ regular: "total" }} />
     </div>
   );
 }

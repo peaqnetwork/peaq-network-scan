@@ -2,5 +2,7 @@
   "APP_NAME": "peaqScan",
   "CUSTOM_RPC_METHODS": {},
   "ITEMS_PER_PAGE": 10,
-  "SUBSQUID_ARCHIVE_GRAPH_NODE": "https://peaq.indexer.gc.subsquid.io/v4/graphql"
+  "SUBSQUID_ARCHIVE_GRAPH_NODE": "https://peaq.indexer.gc.subsquid.io/v4/graphql",
+  "SUBSQUID_GRAPH_SERVER": "https://app.gc.subsquid.io/beta/agung/v1/graphql",
+  "SGS": "http://agung-squid-pr3.ci.peaq.network/graphql"
 }
