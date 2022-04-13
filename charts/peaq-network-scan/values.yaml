@@ -69,13 +69,13 @@ service:
   annotations: {}
   # Add labels to the service
   labels: {}
-resources:
-  limits:
-    cpu: 400m
-    memory: 2048Mi
-  requests:
-    cpu: 0.1
-    memory: 1100Mi
+# resources:
+#   limits:
+#     cpu: 30m
+#     memory: 2048Mi
+#   requests:
+#     cpu: 100m
+#     memory: 1100Mi
 probePath: /
 livenessProbe:
   initialDelaySeconds: 60
