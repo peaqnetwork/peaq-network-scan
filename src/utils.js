@@ -11,8 +11,14 @@ dayjs.extend(relativeTime);
 dayjs.updateLocale("en", {
   relativeTime: {
     ...dayjs.en.relativeTime,
-    s: "%d seconds",
-    m: "%d minutes",
+    s: function (number, withoutSuffix, key, isFuture) {
+      return `${number} ${number > 1 ? "seconds" : "second"}`;
+    },
+    m: "1 minute",
+    h: "1 hour",
+    d: "1 day",
+    M: "1 month",
+    y: "1 year",
   },
 });
 
