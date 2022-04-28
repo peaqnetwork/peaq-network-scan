@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { subSquidGraphServer } from "../../libs/subsquid";
 import config from "../../config";
 import { useSubstrateState } from "../../libs/substrate";
-import { formatTime, shortenHex } from "../../utils";
+import { shortenHex } from "../../utils";
 import { formatBalance } from "@polkadot/util";
 import Pagination from "../pagination/pagination";
 import InfoPlaceholder from "../info-placeholder";
 import { Link } from "react-router-dom";
+import FormatedTime from "../formated-time";
 
 export default function TransfersList() {
   const limit = config.ITEMS_PER_PAGE;
@@ -131,7 +132,7 @@ export default function TransfersList() {
                       <Link to={`/block/${blockNumber}`}>{blockNumber}</Link>
                     </td>
                     <td className="text-dark-white">
-                      {formatTime(createdAt).fromNow()}
+                      <FormatedTime time={createdAt} />
                     </td>
                     <td className="text-accent-purple">{shortenHex(from)}</td>
                     <td className="text-accent-purple">{shortenHex(to)}</td>

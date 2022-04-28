@@ -2,23 +2,31 @@
  * Some util functions used within the app
  */
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import updateLocale from "dayjs/plugin/updateLocale";
+import moment from "moment";
 
-dayjs.extend(updateLocale);
-dayjs.extend(relativeTime);
-dayjs.updateLocale("en", {
+moment.relativeTimeThreshold("ss", 59);
+moment.relativeTimeThreshold("m", 59);
+moment.relativeTimeThreshold("h", 23);
+moment.updateLocale("en", {
   relativeTime: {
-    ...dayjs.en.relativeTime,
+    future: "in %s",
+    past: "%s ago",
     s: function (number, withoutSuffix, key, isFuture) {
       return `${number} ${number > 1 ? "seconds" : "second"}`;
     },
+    ss: "%d seconds",
     m: "1 minute",
+    mm: "%d minutes",
     h: "1 hour",
+    hh: "%d hours",
     d: "1 day",
+    dd: "%d days",
+    w: "1 week",
+    ww: "%d weeks",
     M: "1 month",
+    MM: "%d months",
     y: "1 year",
+    yy: "%d years",
   },
 });
 
@@ -54,7 +62,7 @@ const shortenHex = (hex) => {
   return `${hex.slice(0, 10)}...`;
 };
 
-const formatTime = dayjs; //.extend(relativeTime);
+const formatTime = moment;
 
 const getBlockTime = (blockObj) => {
   const timeString = blockObj.extrinsics[0].method.args.now.replace(/,/g, "");
