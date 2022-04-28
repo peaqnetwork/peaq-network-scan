@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSubstrateState } from "../libs/substrate";
 import useGetBlocks from "../libs/chain/use-getblocks";
-import { formatTime } from "../utils";
+import FormatedTime from "../components/formated-time";
 
 export default function Blocks() {
   const latestBlocks = useSelector((state) => state.latestBlocks.value);
@@ -69,7 +69,7 @@ export default function Blocks() {
                 <td className="text-dark-white text-small">
                   <div className="d-flex align-items-center">
                     <span className="mr-3">
-                      {formatTime(block.time).fromNow()}
+                      <FormatedTime time={block.time} />
                     </span>
                   </div>
                 </td>

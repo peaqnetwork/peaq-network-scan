@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { formatTime, copyText } from "../../utils";
+import { copyText } from "../../utils";
+import FormatedTime from "../formated-time";
 import InfoPlaceholder from "../info-placeholder";
 
 export default function ExtrinsicsList({
@@ -48,7 +49,7 @@ export default function ExtrinsicsList({
                 <td className="text-accent-purple">{hash}</td>
 
                 <td className="text-dark-white">
-                  {formatTime(new Date(time)).fromNow()}
+                  <FormatedTime time={new Date(time)} />
                 </td>
 
                 <td className="">

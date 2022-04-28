@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { useSubstrateState } from "../libs/substrate";
 import { Link } from "react-router-dom";
-
-dayjs.extend(relativeTime);
+import FormatedTime from "./formated-time";
 
 export default function BlocksTransfers() {
   const [transferEvents, setTransferEvents] = useState([]);
@@ -118,7 +115,7 @@ export default function BlocksTransfers() {
                 </td>
                 <td>
                   <div className="text-dark-white text-small">
-                    {dayjs(event.time).fromNow()}
+                    <FormatedTime time={event.time} />
                   </div>
                   <div className="text-accent-purple text-small">
                     {event.amountExa} EPEAQ
