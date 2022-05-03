@@ -35,13 +35,9 @@ spec:
               resources: {}
             - name: check-registry
               resources: {}
-            - name: build-container-build
+            - image: gcr.io/kaniko-project/executor:slim
+              name: build-container-build
               resources: {}
-              script: |
-                #!/busybox/sh
-                source .jx/variables.sh
-                cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-                /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=${DOCKERFILE_PATH:-Dockerfile} --no-push
             - name: promote-jx-preview
               resources: {}
   podTemplate: {}
