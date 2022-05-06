@@ -1,47 +1,82 @@
 import { useEffect, useState } from "react";
 import config from "../config";
 import { subSquidQuery } from "../libs/subsquid";
+import EventsFilter from "../screens/events/events-filter";
 import EventsList from "../screens/events/events-list";
 
 export default function Events() {
+  const limit = config.ITEMS_PER_PAGE;
+  const [filterParams, setFilterParams] = useState({
+    module: "all",
+    eventMethod: "all",
+    timeDimension: "date", // date, block
+    startDate: "",
+    endDate: "",
+    startBlock: "",
+    endBlock: "",
+  });
+
   const [events, setEvents] = useState([]);
   const [isLoadingEvents, setIsLoadingEvents] = useState(false);
-
-  const limit = config.ITEMS_PER_PAGE;
   const [pageNumber, setPageNumber] = useState(1);
+  const [pageOffset, setPageOffset] = useState(0);
 
-  const offset = (pageNumber - 1) * 10;
+  const changeFilterParams = (param, value) => {
+    setFilterParams({ ...filterParams, [param]: value });
+  };
 
   useEffect(() => {
+    let whereArgs = `where: {`;
+    const { module, eventMethod, startBlock, endBlock, startDate, endDate } =
+      filterParams;
+    if (module && module !== "all") {
+      whereArgs += `section: {_eq: "${module}"}`;
+    }
+    if (eventMethod && eventMethod !== "all") {
+      whereArgs += `method: {_eq: "${eventMethod}"}`;
+    }
+    if (startBlock && endBlock) {
+      whereArgs += `blockNumber: {_gte: ${startBlock}, _lte: ${endBlock}}`;
+    }
+    if (startDate && endDate) {
+      whereArgs += `created_at: {_gte: "${new Date(startDate)
+        .toISOString()
+        .slice(0, 11)}00:00:00.000", _lte: "${new Date(endDate)
+        .toISOString()
+        .slice(0, 11)}23:59:59.999"}`;
+    }
+
+    whereArgs += `}, `;
+
+    const query = `{
+    substrate_event(${whereArgs}order_by: {created_at: desc}, limit: ${limit}, offset: ${
+      (pageNumber - 1) * 10
+    }) {
+      id
+      indexInBlock
+      created_at
+      blockNumber
+      extrinsicIndex
+      method
+      section
+      version
+    }
+  }`;
     let isListMounted = true;
     const getEvents = async () => {
       setIsLoadingEvents(true);
-
-      const QUERY = `{
-        substrate_event(order_by: {created_at: desc}, limit: ${limit}, offset: ${offset}) {
-          id
-          indexInBlock
-          created_at
-          blockNumber
-          extrinsicIndex
-          method
-          section
-          version
-        }
-      }`;
       const { data } = await subSquidQuery.post("", {
-        query: QUERY,
+        query,
       });
 
-      let events = data.data.substrate_event;
-      events = events.map((e) => ({
+      let events = data.data.substrate_event.map((e) => ({
         ...e,
         eventId: `${e.blockNumber}-${e.indexInBlock}`,
         extrinsicId: e.extrinsicIndex
           ? `${e.blockNumber}-${e.extrinsicIndex}`
           : "",
         action: `${e.section} (${e.method})`,
-        eventJSON: JSON.stringify(e),
+        eventJSON: JSON.stringify(e, null, 2),
       }));
 
       if (isListMounted) {
@@ -52,15 +87,25 @@ export default function Events() {
 
     getEvents();
     return () => (isListMounted = false);
-  }, [limit, offset]);
+  }, [filterParams, limit, pageNumber]);
 
   return (
     <div className="page mb-40">
+      <h3 className="text-white">Event history</h3>
+      <div className="bordered-content-box mb-40">
+        <EventsFilter
+          params={filterParams}
+          changeFilterParams={changeFilterParams}
+          setFilterParams={setFilterParams}
+          setPageNumber={setPageNumber}
+        />
+      </div>
       <EventsList
         events={events}
         isLoadingEvents={isLoadingEvents}
-        pageNumber={pageNumber}
+        pageOffset={pageOffset}
         setPageNumber={setPageNumber}
+        setPageOffset={setPageOffset}
       />
       <div className="mt-40 mb-40"></div>
     </div>
