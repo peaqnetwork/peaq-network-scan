@@ -42,7 +42,7 @@ export default function ExpandableRow({
         </td>
 
         <td className="text-dark-white">
-          <FormatedTime time={new Date(Number(blockTimestamp))} />
+          <FormatedTime time={Number(blockTimestamp)} />
         </td>
 
         <td className="text-accent-purple">{action}</td>
