@@ -39,23 +39,21 @@ export default function Events() {
       whereArgs += `blockNumber: {_gte: ${startBlock}, _lte: ${endBlock}}`;
     }
     if (startDate && endDate) {
-      whereArgs += `created_at: {_gte: "${new Date(startDate)
-        .toISOString()
-        .slice(0, 11)}00:00:00.000", _lte: "${new Date(endDate)
-        .toISOString()
-        .slice(0, 11)}23:59:59.999"}`;
+      whereArgs += `blockTimestamp: {_gte: "${new Date(
+        startDate
+      ).getTime()}", _lte: "${new Date(endDate).getTime()}"}`;
     }
 
     whereArgs += `}, `;
 
     const query = `{
-    substrate_event(${whereArgs}order_by: {created_at: desc}, limit: ${limit}, offset: ${
+    substrate_event(${whereArgs}order_by: {id: desc}, limit: ${limit}, offset: ${
       (pageNumber - 1) * 10
     }) {
       id
       indexInBlock
-      created_at
       blockNumber
+      blockTimestamp
       extrinsicIndex
       method
       section
@@ -68,7 +66,6 @@ export default function Events() {
       const { data } = await subSquidQuery.post("", {
         query,
       });
-
       let events = data.data.substrate_event.map((e) => ({
         ...e,
         eventId: `${e.blockNumber}-${e.indexInBlock}`,

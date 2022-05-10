@@ -1,0 +1,39 @@
+[
+  {
+    "section": "baseFee",
+    "methods": ["NewBaseFeePerGas"]
+  },
+  {
+    "section": "system",
+    "methods": [
+      "ExtrinsicSuccess",
+      "NewAccount",
+      "ExtrinsicFailed",
+      "KilledAccount"
+    ]
+  },
+  {
+    "section": "balances",
+    "methods": ["Withdraw", "Transfer", "Reserved", "Unreserved", "Endowed"]
+  },
+  {
+    "section": "peaqDid",
+    "methods": ["AttributeRead", "AttributeUpdated"]
+  },
+  {
+    "section": "ethereum",
+    "methods": ["Executed"]
+  },
+  {
+    "section": "multiSig",
+    "methods": ["NewMultisig", "MultisigExecuted"]
+  },
+  {
+    "section": "transaction",
+    "methods": ["ServiceRequested", "ServiceDelivered"]
+  },
+  {
+    "section": "evm",
+    "methods": ["Log"]
+  }
+]

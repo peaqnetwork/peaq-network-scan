@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Dropdown from "../../components/drop-down";
 import FilterField from "../../components/filter-field";
 import { subSquidQuery } from "../../libs/subsquid";
+import modulesData from "../../data/sections-methods.json";
 
 export default function EventsFilter({
   params,
@@ -52,7 +53,6 @@ export default function EventsFilter({
       const { data } = await subSquidQuery.post("", {
         query: QUERY,
       });
-
       const options = data.data.substrate_event.map((s) => ({
         option: s.section,
         onClick: () => changeFilter("module", s.section),
@@ -65,7 +65,20 @@ export default function EventsFilter({
         setModuleOptions(options);
       }
     };
-    getModuleOptions();
+    // getModuleOptions();
+    // Set hardcoded modules
+    const options = modulesData.map((s) => ({
+      option: s.section,
+      onClick: () => changeFilter("module", s.section),
+    }));
+    options.unshift({
+      option: "all",
+      onClick: () => changeFilter("module", "all"),
+    });
+
+    setModuleOptions(options);
+
+    // end set hardcoded sections
     return () => (isFilterMounted = false);
   }, []);
 
@@ -95,7 +108,27 @@ export default function EventsFilter({
         setIsFetchingMethods(false);
       }
     };
-    getMethodOptions();
+    // getMethodOptions();
+
+    // set hardcoded methods
+    const moduleOptions = modulesData.filter(
+      (m) => m.section === localParams.module
+    )[0];
+    const moduleMethods = moduleOptions ? moduleOptions.methods : [];
+
+    const options = moduleMethods.map((s) => ({
+      option: s,
+      onClick: () => changeFilter("eventMethod", s),
+    }));
+    options.unshift({
+      option: "all",
+      onClick: () => changeFilter("eventMethod", "all"),
+    });
+
+    setEventMethodOptions(options);
+    setIsFetchingMethods(false);
+    // End set hardcoded methods
+
     return () => (isFilterMounted = false);
   }, [localParams.module]);
 
@@ -242,6 +275,7 @@ export default function EventsFilter({
             className="button"
             onClick={() => {
               setPageNumber(1);
+
               setFilterParams(localParams);
             }}
           >
