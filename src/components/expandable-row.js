@@ -7,8 +7,8 @@ import JsonToTable from "./json-to-table";
 export default function ExpandableRow({
   eventId,
   blockNumber,
+  blockTimestamp,
   extrinsicId,
-  created_at,
   action,
   eventJSON,
 }) {
@@ -42,7 +42,7 @@ export default function ExpandableRow({
         </td>
 
         <td className="text-dark-white">
-          <FormatedTime time={created_at} />
+          <FormatedTime time={new Date(Number(blockTimestamp))} />
         </td>
 
         <td className="text-accent-purple">{action}</td>
