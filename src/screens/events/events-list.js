@@ -42,16 +42,16 @@ export default function EventsList({
               ({
                 eventId,
                 blockNumber,
+                blockTimestamp,
                 extrinsicId,
-                created_at,
                 action,
                 eventJSON,
               }) => (
                 <ExpandableRow
                   eventId={eventId}
                   blockNumber={blockNumber}
+                  blockTimestamp={blockTimestamp}
                   extrinsicId={extrinsicId}
-                  created_at={created_at}
                   action={action}
                   eventJSON={eventJSON}
                   key={eventId}
