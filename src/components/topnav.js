@@ -81,6 +81,9 @@ export default function TopNav() {
             <Link to="/transfer" onClick={toggleDropdown}>
               Transfers
             </Link>
+            <Link to="/event" onClick={toggleDropdown}>
+              Events
+            </Link>
           </div>
         )}
         <a href="#contact" className="main-nav">

@@ -13,6 +13,7 @@ import Extrinsics from "./routes/extrinsics";
 import Transfers from "./routes/transfers";
 import Home from "./routes/home";
 import store from "./store/store";
+import Events from "./routes/events";
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState();
@@ -60,6 +61,7 @@ function Main() {
             element={<ExtrinsicDetails />}
           ></Route>
           <Route path="/transfer" element={<Transfers />}></Route>
+          <Route path="/event" element={<Events />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
