@@ -22,7 +22,7 @@ export default function ExtrinsicsList({
             <th>Block</th>
             <th>Hash</th>
             <th>Time</th>
-            <th>Result</th>
+            {/* <th>Result</th> */}
             <th>Action</th>
             <th></th>
           </tr>
@@ -52,7 +52,7 @@ export default function ExtrinsicsList({
                   <FormatedTime time={new Date(time)} />
                 </td>
 
-                <td className="">
+                {/* <td className="">
                   {isSigned ? (
                     <svg
                       width="24"
@@ -80,7 +80,7 @@ export default function ExtrinsicsList({
                       />
                     </svg>
                   )}
-                </td>
+                </td> */}
 
                 <td className="text-accent-purple">{action}</td>
 
@@ -102,7 +102,7 @@ export default function ExtrinsicsList({
                     </svg>
                   </span>
                   <span>
-                    <svg
+                    {/* <svg
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -113,7 +113,7 @@ export default function ExtrinsicsList({
                         d="M11.5 6C7.18182 6 3.49409 8.69533 2 12.5C3.49409 16.3047 7.18182 19 11.5 19C15.8182 19 19.5059 16.3047 21 12.5C19.5059 8.69533 15.8182 6 11.5 6ZM11.5 16.8333C9.11636 16.8333 7.18182 14.892 7.18182 12.5C7.18182 10.108 9.11636 8.16667 11.5 8.16667C13.8836 8.16667 15.8182 10.108 15.8182 12.5C15.8182 14.892 13.8836 16.8333 11.5 16.8333ZM11.5 9.9C10.0664 9.9 8.90909 11.0613 8.90909 12.5C8.90909 13.9387 10.0664 15.1 11.5 15.1C12.9336 15.1 14.0909 13.9387 14.0909 12.5C14.0909 11.0613 12.9336 9.9 11.5 9.9Z"
                         fill="#979798"
                       />
-                    </svg>
+                    </svg> */}
                   </span>
                 </td>
               </tr>

@@ -48,6 +48,7 @@ export default function TransfersHistory({ period, setPeriod }) {
         // console.log("transfers", transfers);
 
         const groupedTransfers = groupBy(transfers, (a) => a.groupTimestamp);
+        console.log("transfers", groupedTransfers);
         let dataset = [];
 
         for (let date in groupedTransfers) {

@@ -11,6 +11,7 @@ import FormatedTime from "../formated-time";
 
 export default function TransfersList() {
   const limit = config.ITEMS_PER_PAGE;
+  const maxPageSize = config.MAX_PAGE_SIZE;
   const [transfers, setTransfers] = useState([]);
   const [isFetchingTransfers, setIsFetchingTransfers] = useState(false);
   const [endCursor, setEndCursor] = useState("");
@@ -70,7 +71,9 @@ export default function TransfersList() {
         console.error(data.errors);
       } else {
         const { edges, totalCount } = data.data.transfersConnection;
-        const pageCount = Math.ceil(totalCount / limit);
+        let pageCount = Math.ceil(totalCount / limit);
+        if (pageCount >= maxPageSize) pageCount = maxPageSize;
+
         const transfers = edges.map((e) => ({
           ...e.node,
           cursor: e.cursor,
