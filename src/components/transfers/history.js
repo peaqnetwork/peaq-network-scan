@@ -45,16 +45,21 @@ export default function TransfersHistory({ period, setPeriod }) {
           // hex: hexToBigInt(t.data.value),
         }));
 
-        // console.log("transfers", transfers);
+        //console.log("transfers", transfers);
 
         const groupedTransfers = groupBy(transfers, (a) => a.groupTimestamp);
-        console.log("transfers", groupedTransfers);
+
         let dataset = [];
 
         for (let date in groupedTransfers) {
+          let totAmt = 0;
+          for (let inVal in groupedTransfers[date]) {
+            totAmt += Number(groupedTransfers[date][inVal].amount);
+          }
           dataset.push({
             timestamp: date, // new Date(date).toISOString(),
             totalNumber: groupedTransfers[date].length,
+            totalAmount: totAmt
             // totalAmount: groupedTransfers[date].reduce(
             //   (prev, cur) => (prev.value += cur.value)
             // ),

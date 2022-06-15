@@ -34,7 +34,7 @@ export default function EventsList({
               <th className="no-wrap">Extrinsic Id</th>
               <th>Time</th>
               <th>Action</th>
-              <th></th>
+              <th>Expand</th>
             </tr>
           </thead>
           <tbody>
