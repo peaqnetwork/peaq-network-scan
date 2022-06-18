@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <div className="footer page">
@@ -107,6 +109,21 @@ export default function Footer() {
           </svg>
         </a>
       </div>
-    </div>
+      <div className="details">
+        Peaq © {new Date().getFullYear()} - Developed by Peaq Team
+        <div className="ptos">
+          <a href="http://www.peaq.network/privacy-policy" target="_new">Privacy Policy</a>
+          &nbsp;-&nbsp;
+          {/* <Link
+            to={`/terms-of-service`}
+          >
+            Terms of Use
+          </Link> */}
+          <Link to="/terms-of-service">
+            Terms of Services
+          </Link>
+        </div>
+      </div>
+    </div >
   );
 }

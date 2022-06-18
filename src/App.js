@@ -14,6 +14,7 @@ import Transfers from "./routes/transfers";
 import Home from "./routes/home";
 import store from "./store/store";
 import Events from "./routes/events";
+import TermsOfService from "./routes/tos";
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState();
@@ -62,10 +63,11 @@ function Main() {
           ></Route>
           <Route path="/transfer" element={<Transfers />}></Route>
           <Route path="/event" element={<Events />}></Route>
+          <Route path="/terms-of-service" element={<TermsOfService />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }

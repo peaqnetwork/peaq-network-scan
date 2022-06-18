@@ -12,7 +12,6 @@ export default function ExtrinsicsData({ signedBlock }) {
             <th>Extrinsic Id</th>
             <th>Hash</th>
             <th>Time</th>
-            <th>Result</th>
             <th>Action</th>
             <th></th>
           </tr>
@@ -24,11 +23,11 @@ export default function ExtrinsicsData({ signedBlock }) {
                 <td className="text-accent-purple">
                   <Link
                     to={`/extrinsic/${String(block.block.header.number).replace(
-                      ",",
+                      /,/g,
                       ""
                     )}-${i}`}
                   >
-                    {String(block.block.header.number).replace(",", "")}-{i}
+                    {String(block.block.header.number).replace(/,/g, "")}-{i}
                   </Link>
                 </td>
 
@@ -47,7 +46,7 @@ export default function ExtrinsicsData({ signedBlock }) {
                   ).fromNow()}
                 </td>
 
-                <td className="">
+                {/* `<td className="">
                   {extrinsic.isSigned ? (
                     <svg
                       width="24"
@@ -75,7 +74,7 @@ export default function ExtrinsicsData({ signedBlock }) {
                       />
                     </svg>
                   )}
-                </td>
+                </td>` */}
 
                 <td className="text-accent-purple">
                   {extrinsic.method.section} ({extrinsic.method.method})
