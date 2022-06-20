@@ -92,8 +92,6 @@ const TermsOfService = () => {
             <br />
             <br />
             <br />
-            <br />
-            <br />
         </div>
     );
 }

@@ -15,6 +15,8 @@ import Home from "./routes/home";
 import store from "./store/store";
 import Events from "./routes/events";
 import TermsOfService from "./routes/tos";
+import CookieConsentRow from "./components/CookieConcent";
+
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState();
@@ -66,6 +68,8 @@ function Main() {
           <Route path="/terms-of-service" element={<TermsOfService />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
+        <br />
+        <CookieConsentRow />
         <Footer />
       </BrowserRouter>
     </div>

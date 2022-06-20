@@ -75,23 +75,29 @@ export default function TopNav() {
             <Link to="/block" onClick={toggleDropdown}>
               Blocks
             </Link>
-            <Link to="/extrinsic" onClick={toggleDropdown}>
+            {/* <Link to="/extrinsic" onClick={toggleDropdown}>
               Extrinsics
             </Link>
             <Link to="/transfer" onClick={toggleDropdown}>
               Transfers
-            </Link>
+            </Link> */}
             <Link to="/event" onClick={toggleDropdown}>
               Events
             </Link>
           </div>
         )}
-        <a href="#contact" className="main-nav">
+        {/* <a href="#contact" className="main-nav">
           Tools
         </a>
         <a href="/" className="main-nav">
           Accounts
-        </a>
+        </a> */}
+        <Link to="/extrinsic" className="main-nav" onClick={toggleDropdown}>
+          Extrinsics
+        </Link>
+        <Link to="/transfer" className="main-nav" onClick={toggleDropdown}>
+          Transfers
+        </Link>
         <span
           className="nav-icon"
           onClick={() => setIsNavOpen((isNavOpen) => !isNavOpen)}
