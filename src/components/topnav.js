@@ -16,7 +16,7 @@ export default function TopNav() {
   );
 
   return (
-    <nav className={`topnav page ${isNavOpen ? "responsive" : ""}`}>
+    <nav className={`topnav ${isNavOpen ? "responsive" : ""}`}>
       <Link to="/">
         <svg
           width="155"
@@ -92,10 +92,10 @@ export default function TopNav() {
         <a href="/" className="main-nav">
           Accounts
         </a> */}
-        <Link to="/extrinsic" className="main-nav" onClick={toggleDropdown}>
+        <Link to="/extrinsic" className="main-nav">
           Extrinsics
         </Link>
-        <Link to="/transfer" className="main-nav" onClick={toggleDropdown}>
+        <Link to="/transfer" className="main-nav">
           Transfers
         </Link>
         <span

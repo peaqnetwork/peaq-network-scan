@@ -79,6 +79,7 @@ a {
 
 /* TopNav */
 .topnav {
+  padding: 20px 170px;
   overflow: hidden;
   background-color: #212427;
   width: 100%;
@@ -125,6 +126,7 @@ a {
 
 .topnav .chain-info-container {
   margin-top: 30px;
+  display: none;
 }
 
 .topnav .nav-icon {
@@ -593,6 +595,7 @@ td.no-wrap {
 
 /* Footer */
 .footer {
+  padding: 20px 170px;
   position: fixed;
   left: 0;
   bottom: 0;

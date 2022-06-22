@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className="footer page">
+    <div className="footer">
       <svg
         width="155"
         height="39"

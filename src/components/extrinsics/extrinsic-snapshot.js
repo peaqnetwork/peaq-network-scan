@@ -198,7 +198,7 @@ export default function ExtrinsicSnapshot({ extrinsicId }) {
             </td>
           </tr>
 
-          <tr>
+          {/* <tr>
             <td className="block-snapshot-title">Result</td>
             <td>
               <span className="d-flex align-items-center">
@@ -234,7 +234,7 @@ export default function ExtrinsicSnapshot({ extrinsicId }) {
                 </span>
               </span>
             </td>
-          </tr>
+          </tr> */}
           <tr>
             <td className="block-snapshot-title">Parameters</td>
             <td className="text-dark-white d-flex align-items-center ">
