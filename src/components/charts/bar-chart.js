@@ -49,7 +49,7 @@ export default class Chart extends Component {
                 type: "bar",
                 barWidth: "75%",
                 itemStyle: { borderRadius: 5, color: "#282C2F" },
-                tooltip: { valueFormatter: (value) => -value + " tokens" },
+                tooltip: { valueFormatter: (value) => -value + " items" },
                 stack: "tx",
               }
               : null,
