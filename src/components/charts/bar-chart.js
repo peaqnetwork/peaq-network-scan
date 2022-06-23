@@ -40,18 +40,18 @@ export default class Chart extends Component {
               type: "bar",
               barWidth: "75%",
               itemStyle: { borderRadius: 5, color: "#A6A3FF" },
-              tooltip: { valueFormatter: (value) => value + " times" },
+              tooltip: { valueFormatter: (value) => value + " tokens" },
               stack: "tx",
             },
             hasInvert
               ? {
-                  data: chartData.map((c) => -c[dataProp.invert]),
-                  type: "bar",
-                  barWidth: "75%",
-                  itemStyle: { borderRadius: 5, color: "#282C2F" },
-                  tooltip: { valueFormatter: (value) => -value + " times" },
-                  stack: "tx",
-                }
+                data: chartData.map((c) => -c[dataProp.invert]),
+                type: "bar",
+                barWidth: "75%",
+                itemStyle: { borderRadius: 5, color: "#282C2F" },
+                tooltip: { valueFormatter: (value) => -value + " tokens" },
+                stack: "tx",
+              }
               : null,
           ],
           grid: {

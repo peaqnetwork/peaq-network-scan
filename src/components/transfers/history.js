@@ -60,7 +60,7 @@ export default function TransfersHistory({ period, setPeriod }) {
           dataset.push({
             timestamp: date, // new Date(date).toISOString(),
             totalNumber: groupedTransfers[date].length,
-            totalAmount: totAmt / config.TOKEN_VALUE
+            totalAmount: (totAmt / config.TOKEN_VALUE).toFixed(4),
             // totalAmount: groupedTransfers[date].reduce(
             //   (prev, cur) => (prev.value += cur.value)
             // ),
