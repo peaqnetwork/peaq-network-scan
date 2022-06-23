@@ -5,6 +5,7 @@ import { useSubstrateState } from "../../libs/substrate";
 import { getHistoryDateRange, roundToMinutes } from "../../utils";
 import Chart from "../charts/bar-chart";
 import InfoPlaceholder from "../info-placeholder";
+import config from "../../config";
 
 export default function TransfersHistory({ period, setPeriod }) {
   const { api } = useSubstrateState();
@@ -59,7 +60,7 @@ export default function TransfersHistory({ period, setPeriod }) {
           dataset.push({
             timestamp: date, // new Date(date).toISOString(),
             totalNumber: groupedTransfers[date].length,
-            totalAmount: totAmt
+            totalAmount: totAmt / config.TOKEN_VALUE
             // totalAmount: groupedTransfers[date].reduce(
             //   (prev, cur) => (prev.value += cur.value)
             // ),
@@ -109,8 +110,12 @@ export default function TransfersHistory({ period, setPeriod }) {
           dataProp={{ regular: "totalAmount", invert: "totalNumber" }}
         />
       ) : (
+        // <InfoPlaceholder
+        //   text={`Sorry we couldn't find transfers in the last ${period}`}
+        //   isBare
+        // />
         <InfoPlaceholder
-          text={`Sorry we couldn't find transfers in the last ${period}`}
+          text={`Please wait data is being fetched`}
           isBare
         />
       )}
