@@ -2,6 +2,10 @@
 
 peaqScan is a blockchain explorer. It is used to visualize blockchain data from the Agung network. It can also be used for any other substrate-based network like Polkadot, etc.
 
+# Architecture
+
+peaqScan was bootstrapped with Create React App (CRA) to leverage the component-based architecture and reaction to app state with hooks. The freedom to structure the application rather than be restricted to a particular pattern was also a consideration.
+
 
 ## Local installation
 
