@@ -5,6 +5,7 @@ import { useSubstrateState } from "../../libs/substrate";
 import { getHistoryDateRange, roundToMinutes } from "../../utils";
 import Chart from "../charts/bar-chart";
 import InfoPlaceholder from "../info-placeholder";
+import config from "../../config";
 
 export default function TransfersHistory({ period, setPeriod }) {
   const { api } = useSubstrateState();
@@ -45,15 +46,21 @@ export default function TransfersHistory({ period, setPeriod }) {
           // hex: hexToBigInt(t.data.value),
         }));
 
-        // console.log("transfers", transfers);
+        //console.log("transfers", transfers);
 
         const groupedTransfers = groupBy(transfers, (a) => a.groupTimestamp);
+
         let dataset = [];
 
         for (let date in groupedTransfers) {
+          let totAmt = 0;
+          for (let inVal in groupedTransfers[date]) {
+            totAmt += Number(groupedTransfers[date][inVal].amount);
+          }
           dataset.push({
             timestamp: date, // new Date(date).toISOString(),
             totalNumber: groupedTransfers[date].length,
+            totalAmount: (totAmt / config.TOKEN_VALUE).toFixed(4),
             // totalAmount: groupedTransfers[date].reduce(
             //   (prev, cur) => (prev.value += cur.value)
             // ),
@@ -103,8 +110,12 @@ export default function TransfersHistory({ period, setPeriod }) {
           dataProp={{ regular: "totalAmount", invert: "totalNumber" }}
         />
       ) : (
+        // <InfoPlaceholder
+        //   text={`Sorry we couldn't find transfers in the last ${period}`}
+        //   isBare
+        // />
         <InfoPlaceholder
-          text={`Sorry we couldn't find transfers in the last ${period}`}
+          text={`Please wait data is being fetched`}
           isBare
         />
       )}

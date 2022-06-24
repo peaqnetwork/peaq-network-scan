@@ -55,9 +55,9 @@ export default function Validators() {
 
           <h3 className="ml-3">Validators/Connected Peers</h3>
         </div>
-        <a href="/validators" className="button small">
+        {/*<a href="/validators" className="button small">
           All
-        </a>
+  </a>*/}
       </div>
       <div className="validators-table">
         <table className="table">

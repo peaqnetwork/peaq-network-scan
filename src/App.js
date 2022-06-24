@@ -14,6 +14,9 @@ import Transfers from "./routes/transfers";
 import Home from "./routes/home";
 import store from "./store/store";
 import Events from "./routes/events";
+import TermsOfService from "./routes/tos";
+import CookieConsentRow from "./components/CookieConcent";
+
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState();
@@ -29,7 +32,7 @@ function Main() {
 
   const message = (errObj) => (
     <div className="d-flex align-items-center flex-direction-column message-bar">
-      <span className="header">Error Connecting to Substrate</span>
+      <span className="header">Error Connecting to peaq network</span>
       <span className="">
         Connection to websocket {errObj.target.url} failed{" "}
       </span>
@@ -37,7 +40,7 @@ function Main() {
   );
 
   if (apiState === "ERROR") return message(apiError);
-  else if (apiState !== "READY") return loader("Connecting to Substrate");
+  else if (apiState !== "READY") return loader("Connecting to peaq network");
 
   if (keyringState !== "READY") {
     return loader(
@@ -62,10 +65,13 @@ function Main() {
           ></Route>
           <Route path="/transfer" element={<Transfers />}></Route>
           <Route path="/event" element={<Events />}></Route>
+          <Route path="/terms-of-service" element={<TermsOfService />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
+        <br />
+        <CookieConsentRow />
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }

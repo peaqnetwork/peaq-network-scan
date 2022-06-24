@@ -18,7 +18,7 @@ export default function Blocks() {
           <thead>
             <tr>
               <th>Block</th>
-              <th>Status</th>
+              {/* <th>Status</th> */}
               <th>Time</th>
               <th>Extrinsics</th>
               <th>Events</th>
@@ -37,7 +37,7 @@ export default function Blocks() {
                     {block.blockNumber}
                   </Link>
                 </td>
-                <td>
+                {/* <td>
                   {block.isFinalized ? (
                     <svg
                       width="24"
@@ -65,7 +65,7 @@ export default function Blocks() {
                       />
                     </svg>
                   )}
-                </td>
+                </td> */}
                 <td className="text-dark-white text-small">
                   <div className="d-flex align-items-center">
                     <span className="mr-3">
