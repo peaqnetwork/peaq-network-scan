@@ -1,6 +1,7 @@
 # peaqScan
 
-peaq blockchain explorer
+peaqScan is a blockchain explorer. It is used to visualize blockchain data from the Agung network. It can also be used for any other substrate-based network like Polkadot, etc.
+
 
 ## Local installation
 
