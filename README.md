@@ -8,13 +8,15 @@ peaqScan was bootstrapped with Create React App (CRA) to leverage the component-
 
 # Technologies
 The following technologies have been used in different parts of the application:
-●	Application - React (Hooks and functional components)
-●	Global state management - Redux, Redux Toolkit
-●	Routing - React Router
-●	Jest and React Testing Library for testing
-●	Testing - Jest, React Testing Library
-●	Styles - Global CSS definitions
-●	Data pipeline - PolkadotJS API, Subsquid
+
+
+-	Application - React (Hooks and functional components)
+-	Global state management - Redux, Redux Toolkit
+-	Routing - React Router
+-	Jest and React Testing Library for testing
+- Testing - Jest, React Testing Library
+-	Styles - Global CSS definitions
+-	Data pipeline - PolkadotJS API, Subsquid
 
 
 
