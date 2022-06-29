@@ -88,6 +88,9 @@ a {
 .topnav .nav-links {
   float: right;
   /* display: inline; */
+  /* -ms-transform: translateY(50%);
+  transform: translateY(50%); */
+  margin-top: 1%;
 }
 
 .topnav.nav-brand {
