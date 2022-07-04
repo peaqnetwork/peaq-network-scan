@@ -15,10 +15,10 @@ export default function Validators() {
         unsubscribeAll = await api.rpc.system.peers((peers) => {
           const peersArr = peers.toHuman();
           // Validators are peers with role AUTHORITY
-          const validatorPeers = peersArr.filter(
-            (peer) => peer.roles === "AUTHORITY"
-          );
-          setValidators(validatorPeers);
+          // const validatorPeers = peersArr.filter(
+          //   (peer) => peer.roles === "AUTHORITY"
+          // );
+          setValidators(peersArr);
         });
       } catch (error) {
         console.error();

@@ -118,7 +118,7 @@ export default function BlocksTransfers() {
                     <FormatedTime time={event.time} />
                   </div>
                   <div className="text-accent-purple text-small">
-                    {event.amountExa} EPEAQ
+                    {event.amountExa} AGUNG
                   </div>
                 </td>
               </tr>
