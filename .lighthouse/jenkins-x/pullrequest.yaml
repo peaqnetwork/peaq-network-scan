@@ -27,9 +27,11 @@ spec:
           resources: {}
         - name: jx-variables
           resources: {}
-        - name: build-npm-install
+        - image: node:lts-alpine
+          name: build-npm-install
           resources: {}
-        - name: build-npm-test
+        - image: node:lts-alpine
+          name: build-npm-test
           resources: {}
         - name: check-registry
           resources: {}
